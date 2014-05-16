@@ -23,7 +23,7 @@
                 min-height: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                background: green;
+                background: lightcyan;
             }
             
             .header {
@@ -141,7 +141,31 @@
             </div>
             
             <div class="content">
-            
+                <div class="Menu">
+                    Izvēlieties produktu:
+                    <select name="maniProdukti">
+                        <option value=""></option>
+                        <option value="Jogurts">Jogurts</option>
+                        <option value="Maize">Maize</option>
+                        <option value="Coca Cola">Coca Cola</option>
+                    </select>
+                    <ul>
+                        <li><a href="#">Pievienot produktu</a></li>
+                        <li><a href="#">Rediģēt produktu</a></li>
+                        <li><a href="#">Dzēst produktu</a></li>
+                    </ul>
+                </div>
+                <div class="PievienotProduktu">
+                    <select name="maniProduktiEst">
+                        <option value=""></option>
+                        <option value="Jogurts">Jogurts</option>
+                        <option value="Maize">Maize</option>
+                        <option value="Coca Cola">Coca Cola</option>
+                    </select>
+                    <form name="input">
+                        <input type="text" style="width: 100px"> ml <input type="submit" value="Pievienot">
+                    </form>
+                </div>
             </div>
         </div>
     </body>
