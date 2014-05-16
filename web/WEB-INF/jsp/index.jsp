@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nutrition Calc</title>
+        <title>Nutrition and Diet calc</title>
         <style type="text/css">
              body, html {
 	        background-color: #A0FFA0;
@@ -114,7 +114,7 @@
         <div id="wrap">
             <div class="header">
                 <div class="name">
-                    Nutrition Calc
+                    Nutrition and Diet calc
                 </div>
                 <div class="personInfo">
                     <div class="personName">
