@@ -4,6 +4,11 @@
     Author     : Madara
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -93,6 +98,47 @@
                     <a href="#">Sign up</a>
                 </div>
             </div>
+            
+            <%! String driverName = "com.mysql.jdbc.Driver";%>
+            <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+            <%!String user = "root";%>
+            <%!String psw = "zup1nja*";%>
+            <form action="#">
+                <%
+                Connection con = null;
+                PreparedStatement ps = null;
+                try
+                {
+                    Class.forName(driverName);
+                    con = DriverManager.getConnection(url,user,psw);
+                    String sql = "SELECT Nosaukums FROM produkts";
+                    ps = con.prepareStatement(sql);
+                    ResultSet rs = ps.executeQuery(); 
+                %>
+            <p>Select Product :
+            <select>
+                <%
+                    while(rs.next())
+                    {
+                    String fname = rs.getString("Nosaukums"); 
+                %>
+            <option value="<%=fname %>"><%=fname %></option>
+                <%
+                    }
+                %>
+            </select>
+            </p>
+                <%
+                    }
+                    catch(SQLException sqe)
+                    { 
+                    out.println(sqe);
+                    }
+                %>
+            </form>
+            
+            
+            
         </div>
     </body>
 </html>
