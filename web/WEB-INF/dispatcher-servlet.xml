@@ -44,10 +44,10 @@
     
     <bean name="loginController"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-        p:viewName="pievienot"/>
+        p:viewName="login"/>
     
     <bean name="registretiesController"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-        p:viewName="pievienot"/>
+        p:viewName="registreties"/>
     
 </beans>

@@ -10,8 +10,76 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
+        <style type="text/css">
+            body, html {
+	        background-color: #A0FFA0;
+	        font-family: Verdana, Geneva, sans-serif;
+	        color: #474747;
+	        font-size: 12px;
+	        height: 100%;
+                margin-top: 0px;
+            }
+            
+            #wrap {
+                position: relative;
+                width: 990px;
+                height: auto;
+                min-height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                background: lightcyan;
+            }
+            
+            .header {
+                position: relative;
+                width: 990px;
+                height: auto;
+                color: black;
+                background-color: yellow;
+            }
+            
+            .name {
+                position: relative;
+                width: auto;
+                height: 120px;
+                top: 30px;
+                font-family: ravie;
+                font-size: 48px;
+                text-align: center;
+            }
+            
+            .content{
+                
+            }
+            
+            .main{
+                
+            }
+            
+            .links{
+                
+            }
+        </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="wrap">
+            <div class="header">
+                <div class="name">
+                    Nutrition and Diet calc
+                </div>
+            </div>
+            <div class="content">
+                <div class="main">
+                    <form name="input">
+                        <input type="text" style="width: 100px"> login
+                        <input type="text" style="width: 100px"> password
+                        <input type="submit" value="ieiet">
+                    </form>
+                </div>
+                <div class="links">
+                    <a href="#">Reģistrēties</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
