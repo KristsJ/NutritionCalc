@@ -82,9 +82,9 @@
             <div class="content">
                 <div class="main">
                     <form name="input">
-                        <input type="text" style="width: 100px"> login
+                        <input type="text" name="login" style="width: 100px"> login
                         <br></br>
-                        <input type="text" style="width: 100px"> password
+                        <input type="text" name="pass" style="width: 100px"> password
                         <br></br>
                         <input type="submit" value="Sign in">
                     </form>
