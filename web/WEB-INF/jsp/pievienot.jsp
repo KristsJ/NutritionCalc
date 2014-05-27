@@ -58,10 +58,19 @@
             
             .main{
                 position: relative;
+                float: left;
                 width: auto;
                 height: 120px;
+                left:5px;
                 top: 10px;
-                left:100px;
+            }
+            
+            .main_nos{
+                position: relative;
+                line-height: 36px;
+                float: left;
+                width: auto;
+                height: 120px;
             }
             
         </style>
@@ -76,30 +85,53 @@
             </div>
             <div class="content">
                 <h1>New product / Jauns produkts</h1>
+                <div class="main_nos">
+                    product name / produkta nosaukums : 
+                    <br>
+                    unit of measurement / mērvienība : 
+                    <br>
+                    kCal : 
+                    <br>
+                    fat / tauki :
+                    <br>
+                    carbohydrate / ogļhidrāti : 
+                    <br>
+                    albumen / olbaltumvielas :
+                    <br>
+                    salt / sāls :  
+                    <br>
+                     / transtaukskābes : 
+                     <br>
+                    cellulose / škiedrvielas : 
+                    <br>
+                    sugar / cukurs : 
+                    </div>
                 <div class="main">
                     <form name="input">
-                        <input type="text" name="prodName" style="width: 100px"> product name / produkta nosaukums
+                        <input type="text" name="prodName" style="width: 100px"> * 
                         <br></br>
-                        <input type="text" name="mervieniba" style="width: 100px"> unit of measurement / mērvienība
+                        <select name="mervieniba" style="width: 103px">
+                            <option value="ml">ml</option>
+                            <option value="g">g</option>
+                            <option value="pc">piece</option>
+                        </select> *
                         <br></br>
-                        <input type="text" name="kcal" style="width: 100px"> kCal
+                        <input type="text" name="kcal" style="width: 100px"> *
                         <br></br>
-                        <input type="text" name="fat" style="width: 100px"> fat / tauki
+                        <input type="text" name="fat" style="width: 100px">
                         <br></br>
-                        <input type="text" name="oglHidr" style="width: 100px"> carbohydrate / ogļhidrāti
+                        <input type="text" name="oglHidr" style="width: 100px"> 
                         <br></br>
-                        <input type="text" name="olbalt" style="width: 100px"> albumen / olbaltumvielas
+                        <input type="text" name="olbalt" style="width: 100px">
                         <br></br>
-                        <input type="text" name="sals" style="width: 100px"> salt / sāls
+                        <input type="text" name="sals" style="width: 100px"> 
                         <br></br>
-                        <input type="text" name="tauksk" style="width: 100px"> fatty acid / taukskābes
+                        <input type="text" name="transk" style="width: 100px"> 
                         <br></br>
-                        <input type="text" name="transk" style="width: 100px">  / transkābes
+                        <input type="text" name="skiedrv" style="width: 100px"> 
                         <br></br>
-                        <input type="text" name="skiedrv" style="width: 100px"> cellulose / škiedrvielas
-                        <br></br>
-                        <input type="text" name="cukurs" style="width: 100px"> sugar / cukurs
-                        <br></br>
+                        <input type="text" name="cukurs" style="width: 100px"> 
+                        <br></br><br></br>
                         <input type="submit" value="Add/Pievienot">
                     </form>
                 </div>
