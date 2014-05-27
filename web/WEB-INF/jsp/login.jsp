@@ -14,6 +14,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <%! String driverName = "com.mysql.jdbc.Driver";%>
+        <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+        <%!String user = "root";%>
+        <%!String psw = "zup1nja*";%>
+        
         <title>Nutrition and Diet calc</title>
         <style type="text/css">
             body, html {
@@ -86,59 +92,57 @@
             </div>
             <div class="content">
                 <div class="main">
-                    <form name="input">
+                    <form name="input" method="get">
                         <input type="text" name="login" style="width: 100px"> login
                         <br></br>
                         <input type="text" name="pass" style="width: 100px"> password
                         <br></br>
-                        <input type="submit" value="Sign in">
+                        <input type="submit" value="Sign in">                    
                     </form>
                 </div>
                 <div class="links">
                     <a href="#">Sign up</a>
                 </div>
-            </div>
-            
-            <%! String driverName = "com.mysql.jdbc.Driver";%>
-            <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
-            <%!String user = "root";%>
-            <%!String psw = "zup1nja*";%>
-            <form action="#">
-                <%
-                Connection con = null;
-                PreparedStatement ps = null;
-                try
-                {
-                    Class.forName(driverName);
-                    con = DriverManager.getConnection(url,user,psw);
-                    String sql = "SELECT Nosaukums FROM produkts";
-                    ps = con.prepareStatement(sql);
-                    ResultSet rs = ps.executeQuery(); 
-                %>
-            <p>Select Product :
-            <select>
-                <%
-                    while(rs.next())
+
+                        
+  <%
+   String login = request.getParameter("login");
+   String pass = request.getParameter("pass");
+   
+   Connection connection = null;
+   PreparedStatement pstatement = null;
+   Class.forName(driverName);
+   
+   if(login!=null && pass!=null){
+       if(login!="" && pass!="") {
+              try {
+                   connection = DriverManager.getConnection(url, user, psw);
+                   String queryString = "SELECT Lietotajvards,Parole FROM lietotajs";
+                   pstatement = connection.prepareStatement(queryString);
+                   ResultSet rs1 = pstatement.executeQuery(); 
+                   while(rs1.next())
                     {
-                    String fname = rs.getString("Nosaukums"); 
-                %>
-            <option value="<%=fname %>"><%=fname %></option>
-                <%
+                    String lietotajs = rs1.getString("Lietotajvards");
+                    String parole = rs1.getString("Parole");
+              
+                    if(login==lietotajs && pass==parole){
+                        //
+                        //
+                        //aiziet uz index lapu
+                        //
+                        //
                     }
-                %>
-            </select>
-            </p>
-                <%
                     }
-                    catch(SQLException sqe)
+                   }
+              catch(SQLException sqe)
                     { 
                     out.println(sqe);
                     }
-                %>
-            </form>
-            
-            
-            
+       }
+   }
+  %>          
+                    
+             </div>    
         </div>
     </body>
 </html>
