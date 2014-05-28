@@ -4,6 +4,7 @@
     Author     : Madara
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -11,6 +12,10 @@
 
 <!DOCTYPE html>
 <html>
+        <%! String driverName = "com.mysql.jdbc.Driver";%>
+        <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+        <%!String user = "root";%>
+        <%!String psw = "zup1nja*";%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
@@ -101,9 +106,9 @@
                 </div>
                 <div class="column2">
                     <form name="input" method="get">
-                        <input type="text" style="width: 150px; height: 18px" name="userBox">
-                        <input type="password" style="width: 150px; height: 18px" name="passBox">
-                        <input type="text" style="width: 150px; height: 18px" name="nameBox">
+                        <input type="text" style="width: 150px; height: 18px" name="userBox"> *
+                        <input type="password" style="width: 150px; height: 18px" name="passBox"> *
+                        <input type="text" style="width: 150px; height: 18px" name="nameBox"> *
                         <input type="text" style="width: 150px; height: 18px" name="surnameBox">
                         <select name="year" style="width: 63px; height: 22px">
                            
@@ -111,7 +116,7 @@
                                 int year = i;%>
                                 <option value="<%=year %>"><%=year %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="month" style="width: 41px; height: 22px; top:-22px">
                             
@@ -123,7 +128,7 @@
                             %>
                                 <option value="<%=month %>"><%=month %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="day" style="width: 41px; height: 22px; top:-22px">
                             
@@ -135,13 +140,13 @@
                                 %>
                                 <option value="<%=day %>"><%=day %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="gender" style="width: 153px; height: 22px">
                             
                             <option value="S">Female</option>
                             <option value="V">Male</option>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="height" style="width: 153px; height: 22px">
                             
@@ -149,7 +154,7 @@
                                 int height = i;%>
                                 <option value="<%=height %>"><%=height %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="weight1" style="width: 75px; height: 22px">
                             
@@ -157,7 +162,7 @@
                                 int weight = i;%>
                                 <option value="<%=weight %>"><%=weight %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <select name="weight2" style="width: 75px; height: 22px; top:-22px">
                             
@@ -165,7 +170,7 @@
                                 int weight2 = i;%>
                                 <option value="<%=weight2 %>"><%=weight2 %></option><%
                             }%>
-                            <option value="NULL"></option>;
+                            <option value=""></option>;
                         </select>
                         <input type="submit" value="Sign up" style="width: 150px">
 
@@ -174,38 +179,109 @@
             </div>
         </div>
 <%
-    String user = request.getParameter("userBox");
+    String userName = request.getParameter("userBox");
     String pass = request.getParameter("passBox");
     String name = request.getParameter("nameBox");
-    String surname = "";
-    String birthDate = "";
+    String surname = request.getParameter("surnameBox");
     String gender = request.getParameter("gender");
     String height = request.getParameter("height");
-    String weight = request.getParameter("weight1")+"."+request.getParameter("weight2");
+    String weight1 = request.getParameter("weight1");
+    String weight2 = request.getParameter("weight2");
+    String date = request.getParameter("year");
+    String date2 = request.getParameter("month");
+    String date3 = request.getParameter("day"); 
     
+    String queryString2 ="";
+    Connection connection = null;
+    PreparedStatement pstatement = null;
+    PreparedStatement pstatement1 = null;
+    PreparedStatement pstatement2 = null;
+    Class.forName(driverName);
+    int updateQuery = 0;
+    int updateQuery2 = 0;
     
-    if(!request.getParameter("surnameBox").equals("NULL")){
-        surname = request.getParameter("surnameBox");
+    if(userName!=null&&pass!=null&&name!=null){
+        if(userName!="" && pass!="" && name!=""){
+            try{
+                connection = DriverManager.getConnection(url, user, psw);
+                String queryGetUserName = "SELECT Lietotajvards FROM lietotajs";
+                PreparedStatement stmt = connection.prepareStatement(queryGetUserName);
+                ResultSet result = stmt.executeQuery();
+                ArrayList<String> liste = new ArrayList<String>();
+                while(result.next()){
+                    liste.add(result.getString("Lietotajvards"));
+                }
+                for(String uname:liste){
+                    if(uname.equals(userName)){
+                        %><p style="color:red">Choose another username!</p><%
+                    }
+                    else{
+                        String queryString = "INSERT INTO lietotajs(Lietotajvards,Parole,Vards) VALUES (?, ?, ?)";
+                        pstatement = connection.prepareStatement(queryString);
+                        pstatement.setString(1, userName);
+                        pstatement.setString(2, pass);
+                        pstatement.setString(3, name);
+                        updateQuery = pstatement.executeUpdate();
+                    }
+                }
+                
+             
+               if(surname!=null || gender!=null || height!=null || (weight1!=null && weight2!=null) || (date!=null && date2!=null && date3!=null)){
+                    if(surname!="" || gender!="" || height!="" || (weight1!="" && weight2!="") || (date!="" && date2!="" && date3!="")){
+                        String queryString1 = "SELECT idLietotajs FROM lietotajs";
+                        pstatement1 = connection.prepareStatement(queryString1);
+                        ResultSet rs1 = pstatement1.executeQuery(); 
+                        int id=0;
+                        while(rs1.next()){
+                            id = Integer.parseInt(rs1.getString("idLietotajs"));
+                        }
+                        int sk=0;
+                        queryString2 = "UPDATE lietotajs SET ";
+                        
+                        if(surname!=null && surname!=""){
+                            queryString2=queryString2+"Uzvards='"+surname+"'";
+                            sk++;
+                        }
+                        if(gender!=null && gender!=""){
+                            if(sk>0){
+                                queryString2=queryString2+", ";
+                            }
+                            queryString2=queryString2+"Dzimums='"+gender+"'";
+                            sk++;
+                        }
+                        if(height!=null && height!=""){
+                            if(sk>0){
+                                queryString2=queryString2+", ";
+                            }
+                            queryString2=queryString2+"Garums='"+height+"'";
+                            sk++;
+                        }
+                        if(weight1!=null && weight1!="" && weight2!=null && weight2!=""){
+                            if(sk>0){
+                                queryString2=queryString2+", ";
+                            }
+                            queryString2=queryString2+"Svars='"+weight1+"."+weight2+"'";
+                            sk++;
+                        }
+                        if(date!=null && date2!=null && date3!=null && date!="" && date2!="" && date3!=""){
+                           if(sk>0){
+                                queryString2=queryString2+", ";
+                            }
+                            queryString2=queryString2+"Dzimsanas_datums='"+date+"-"+date2+"-"+date3+"'";
+                            sk++; 
+                        }
+                        queryString2=queryString2+" WHERE idLietotajs ="+id+"";
+                                            
+                        pstatement2 = connection.prepareStatement(queryString2);
+                        updateQuery2 = pstatement2.executeUpdate();
+                    }
+                }
+            }
+            catch(SQLException sqe){
+                
+            }
+        }
     }
-    
-    if(request.getParameter("year")=="NULL" || request.getParameter("month")=="NULL" || request.getParameter("day")=="NULL")
-        birthDate="NULL";
-    else{
-        int year = Integer.parseInt(request.getParameter("year"));
-        int month = Integer.parseInt(request.getParameter("month"));
-        int day = Integer.parseInt(request.getParameter("day"));
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH,day);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.YEAR, year); 
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        birthDate = sdf.format(cal.getTime());
-    }*/
-
-    
-    
-
     
 %>
     </body>
