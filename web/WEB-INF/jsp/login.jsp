@@ -102,6 +102,12 @@
                 </div>
                 <div class="links">
                     <a href="#">Sign up</a>
+                    <%  //
+                        //
+                        //aiziet uz registreties lapu
+                        //
+                        //
+                    %>
                 </div>
 
                         
