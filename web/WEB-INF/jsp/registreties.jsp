@@ -106,66 +106,107 @@
                         <input type="text" style="width: 150px; height: 18px" name="nameBox">
                         <input type="text" style="width: 150px; height: 18px" name="surnameBox">
                         <select name="year" style="width: 63px; height: 22px">
+                           
                             <%for(int i=2014; i>=1900; i--){
                                 int year = i;%>
                                 <option value="<%=year %>"><%=year %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="month" style="width: 41px; height: 22px; top:-22px">
+                            
                             <%for(int i=1; i<=12; i++){
-                                int month = i;%>
+                                String month = "";
+                                if(i<=9&&i>=1)
+                                    month = "0"+i;
+                                else month = ""+i;
+                            %>
                                 <option value="<%=month %>"><%=month %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="day" style="width: 41px; height: 22px; top:-22px">
-                            <%for(int i=1; i<=12; i++){
-                                int day = i;%>
+                            
+                            <%for(int i=1; i<=31; i++){
+                                String day="";
+                                if(i<=9&&i>=1)
+                                    day = "0"+i;
+                                else day = ""+i;
+                                %>
                                 <option value="<%=day %>"><%=day %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="gender" style="width: 153px; height: 22px">
+                            
                             <option value="S">Female</option>
                             <option value="V">Male</option>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="height" style="width: 153px; height: 22px">
+                            
                             <%for(int i=50; i<=250; i++){
                                 int height = i;%>
                                 <option value="<%=height %>"><%=height %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="weight1" style="width: 75px; height: 22px">
+                            
                             <%for(int i=5; i<=200; i++){
                                 int weight = i;%>
                                 <option value="<%=weight %>"><%=weight %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
                         <select name="weight2" style="width: 75px; height: 22px; top:-22px">
+                            
                             <%for(int i=0; i<=9; i++){
                                 int weight2 = i;%>
                                 <option value="<%=weight2 %>"><%=weight2 %></option><%
                             }%>
+                            <option value="NULL"></option>;
                         </select>
-                        <input type="submit" name="ok" value="Sign up" style="width: 150px">
-<%
-    String user = request.getParameter("userBox");
-    String pass = request.getParameter("passBox");
-    String name = request.getParameter("nameBox");
-    String surname = request.getParameter("surnameBox");
-    String year = request.getParameter("year");
-    String month = request.getParameter("month");
-    String day = request.getParameter("day");
-    String gender = request.getParameter("gender");
-    String height = request.getParameter("height");
-    String weight1 = request.getParameter("weight1");
-    String weight2 = request.getParameter("weight2");
+                        <input type="submit" value="Sign up" style="width: 150px">
 
-    Calendar cal = 
-
-    
-%>
                     </form>
                 </div>
             </div>
         </div>
+<%
+    String user = request.getParameter("userBox");
+    String pass = request.getParameter("passBox");
+    String name = request.getParameter("nameBox");
+    String surname = "";
+    String birthDate = "";
+    String gender = request.getParameter("gender");
+    String height = request.getParameter("height");
+    String weight = request.getParameter("weight1")+"."+request.getParameter("weight2");
+    
+    
+    if(!request.getParameter("surnameBox").equals("NULL")){
+        surname = request.getParameter("surnameBox");
+    }
+    
+    if(request.getParameter("year")=="NULL" || request.getParameter("month")=="NULL" || request.getParameter("day")=="NULL")
+        birthDate="NULL";
+    else{
+        int year = Integer.parseInt(request.getParameter("year"));
+        int month = Integer.parseInt(request.getParameter("month"));
+        int day = Integer.parseInt(request.getParameter("day"));
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH,day);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.YEAR, year); 
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        birthDate = sdf.format(cal.getTime());
+    }*/
+
+    
+    
+
+    
+%>
     </body>
 </html>
