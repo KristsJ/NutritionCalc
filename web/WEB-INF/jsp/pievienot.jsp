@@ -253,11 +253,12 @@
                                 }
                                 catch(SQLException sqe)
                                 { 
-                                    out.println(sqe);
-                                }
-                                finally {
-                                    pstatement.close();
-                                    connection.close();
+                                    //out.println(sqe);
+                                    %>
+                                    
+                                    <p style="color:red">Ievadītas nepareizas vērtības!</p>
+                                    
+                                    <%
                                 }
                             }
                         }
