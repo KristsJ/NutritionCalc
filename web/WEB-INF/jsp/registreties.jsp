@@ -4,6 +4,7 @@
     Author     : Madara
 --%>
 
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
@@ -275,14 +276,10 @@
     String date2 = request.getParameter("month");
     String date3 = request.getParameter("day"); 
     
-    String queryString2 ="";
     Connection connection = null;
     PreparedStatement pstatement = null;
-    PreparedStatement pstatement1 = null;
-    PreparedStatement pstatement2 = null;
     Class.forName(driverName);
     int updateQuery = 0;
-    int updateQuery2 = 0;
     int equal=0;
     int dateError=0;
     int weightError=0;
@@ -297,72 +294,42 @@
                 while(result.next()){
                     liste.add(result.getString("Lietotajvards"));
                 }
+                connection.close();
                 for(String uname:liste){
                     if(uname.equals(userName)){
                         equal++;
                     }
                 }
                 if(date==null || date2==null || date3==null || date=="" || date2=="" || date3=="") dateError++;
+                if((date==null && date2==null && date3==null) || (date=="" && date2=="" && date3=="")) dateError=0;
                 if(weight1==null || weight2==null || weight1=="" || weight2=="") weightError++;
+                if((weight1==null && weight2==null )|| (weight1=="" && weight2=="")) weightError=0;
                 if(equal==0&&dateError==0&&weightError==0){
-                    String queryString = "INSERT INTO lietotajs(Lietotajvards,Parole,Vards) VALUES (?, ?, ?)";
-                    pstatement = connection.prepareStatement(queryString);
-                    pstatement.setString(1, userName);
-                    pstatement.setString(2, pass);
-                    pstatement.setString(3, name);
-                    updateQuery = pstatement.executeUpdate();
-
+                    Lietotajs l = new Lietotajs(userName, pass, name);
                     if(surname!=null || gender!=null || height!=null || (weight1!=null && weight2!=null) || (date!=null && date2!=null && date3!=null)){
-                        if(surname!="" || gender!="" || height!="" || (weight1!="" && weight2!="") || (date!="" && date2!="" && date3!="")){
-                            String queryString1 = "SELECT idLietotajs FROM lietotajs";
-                            pstatement1 = connection.prepareStatement(queryString1);
-                            ResultSet rs1 = pstatement1.executeQuery(); 
-                            int id=0;
-                            while(rs1.next()){
-                                id = Integer.parseInt(rs1.getString("idLietotajs"));
-                            }
-                            int sk=0;
-                            queryString2 = "UPDATE lietotajs SET ";
-
-                            if(surname!=null && surname!=""){
-                                queryString2=queryString2+"Uzvards='"+surname+"'";
-                                sk++;
-                            }
-                            if(gender!=null && gender!=""){
-                                if(sk>0){
-                                    queryString2=queryString2+", ";
-                                }
-                                queryString2=queryString2+"Dzimums='"+gender+"'";
-                                sk++;
-                            }
-                            if(height!=null && height!=""){
-                                if(sk>0){
-                                    queryString2=queryString2+", ";
-                                }
-                                queryString2=queryString2+"Garums='"+height+"'";
-                                sk++;
-                            }
-                            if(weight1!=null && weight1!="" && weight2!=null && weight2!=""){
-                                if(sk>0){
-                                    queryString2=queryString2+", ";
-                                }
-                                queryString2=queryString2+"Svars='"+weight1+"."+weight2+"'";
-                                sk++;
-                            }
-                            if(date!=null && date2!=null && date3!=null && date!="" && date2!="" && date3!=""){
-                               if(sk>0){
-                                    queryString2=queryString2+", ";
-                                }
-                                queryString2=queryString2+"Dzimsanas_datums='"+date+"-"+date2+"-"+date3+"'";
-                                sk++; 
-                            }
-                            queryString2=queryString2+" WHERE idLietotajs ="+id+"";
-
-                            pstatement2 = connection.prepareStatement(queryString2);
-                            updateQuery2 = pstatement2.executeUpdate();
-                            
+                        if(surname!="" || gender!="" || height!="" || (weight1!="" && weight2!="") || (date!="" && date2!="" && date3!="")){                            
+                            if(surname!=null && surname!="") l.setSurname(surname);
+                            if(gender!=null && gender!="") l.setGender(gender);
+                            if(height!=null && height!="") l.setHeight(height);
+                            if(weight1!=null && weight1!="" && weight2!=null && weight2!="") l.setWeight(weight1+"."+weight2);
+                            if(date!=null && date2!=null && date3!=null && date!="" && date2!="" && date3!="")
+                                l.setDateOfBirth(date+"-"+date2+"-"+date3);
                         }
                     }
+                    connection = DriverManager.getConnection(url, user, psw);
+                    String queryString = "INSERT INTO lietotajs (Lietotajvards,Parole,Vards,Uzvards,Dzimsanas_datums,Garums,Svars,Dzimums)"
+                                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    pstatement = connection.prepareStatement(queryString);
+                    pstatement.setString(1, l.getUsername());
+                    pstatement.setString(2, l.getPassword());
+                    pstatement.setString(3, l.getName());
+                    pstatement.setString(4, l.getSurname());
+                    pstatement.setString(5, l.getDateOfBirth());
+                    pstatement.setString(6, l.getHeight());
+                    pstatement.setString(7, l.getWeight());
+                    pstatement.setString(8, l.getGender());
+                    updateQuery = pstatement.executeUpdate();
+                    connection.close();
                 }
                 else{ 
                     if(equal!=0){
@@ -381,6 +348,7 @@
                         </script><%
                     }
                 }
+                
             }
             catch(SQLException sqe){
                 

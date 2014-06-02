@@ -16,7 +16,7 @@ public class Lietotajs {
     private String name;
     private String surname;
     private String gender;
-    private Datums dateOfBirth;
+    private String dateOfBirth;
     private String height;
     private String weight;
     
@@ -25,7 +25,7 @@ public class Lietotajs {
         this.password=pass;
         this.name=name;
         this.surname="NULL";
-        this.dateOfBirth=new Datums();
+        this.dateOfBirth="NULL";
         this.gender="NULL";
         this.height="NULL";
         this.weight="NULL";     
@@ -71,11 +71,11 @@ public class Lietotajs {
         this.gender = gender;
     }
 
-    public Datums getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Datums dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         
         this.dateOfBirth = dateOfBirth;
     }
