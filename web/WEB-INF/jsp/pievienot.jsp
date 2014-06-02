@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
         <%!String user = "root";%>
         <%!String psw = "zup1nja*";%>
     <head>
@@ -242,6 +242,7 @@
                                             
                                             pstatement2 = connection.prepareStatement(queryString2);
                                             updateQuery2 = pstatement2.executeUpdate();
+                                            connection.close();
                                         }
                                     }
                                     
@@ -262,6 +263,7 @@
                                 }
                             }
                         }
+                        
                     %>
                 </div>
             </div>

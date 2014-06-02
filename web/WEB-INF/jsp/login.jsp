@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
         <%!String user = "root";%>
         <%!String psw = "zup1nja*";%>
         
@@ -92,22 +92,16 @@
             </div>
             <div class="content">
                 <div class="main">
-                    <form name="input" method="get">
+                    <form name="input" method="post">
                         <input type="text" name="login" style="width: 100px"> login
                         <br></br>
-                        <input type="text" name="pass" style="width: 100px"> password
+                        <input type="password" name="pass" style="width: 100px"> password
                         <br></br>
                         <input type="submit" value="Sign in">                    
                     </form>
                 </div>
                 <div class="links">
-                    <a href="#">Sign up</a>
-                    <%  //
-                        //
-                        //aiziet uz registreties lapu
-                        //
-                        //
-                    %>
+                    <a href="../NutritionCalc/registreties.htm">Sign up</a>
                 </div>
 
                         
@@ -126,24 +120,21 @@
                    String queryString = "SELECT Lietotajvards,Parole FROM lietotajs";
                    pstatement = connection.prepareStatement(queryString);
                    ResultSet rs1 = pstatement.executeQuery(); 
-                   while(rs1.next())
-                    {
-                    String lietotajs = rs1.getString("Lietotajvards");
-                    String parole = rs1.getString("Parole");
+                   connection.close();
+                   while(rs1.next()){
+                        String lietotajs = rs1.getString("Lietotajvards");
+                        String parole = rs1.getString("Parole");
               
-                    if(login==lietotajs && pass==parole){
-                        //
-                        //
-                        //aiziet uz index lapu
-                        //
-                        //
-                    }
-                    }
+                        if(login==lietotajs && pass==parole){
+                            out.println("autorizejas");
+                            //response.sendRedirect("index.htm");
+                        }
                    }
-              catch(SQLException sqe)
-                    { 
+                   
+              }
+              catch(SQLException sqe){ 
                     out.println(sqe);
-                    }
+              }
        }
    }
   %>          
