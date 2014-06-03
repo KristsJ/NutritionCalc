@@ -9,6 +9,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -139,12 +140,20 @@
                             String garums="";
                             String svars="";
                             String dzimums="";
+                            Lietotajs lietotajs1=null;
                             while(rs2.next()){
                                 id=rs2.getString("idLietotajs");
-                                
-                                Lietotajs lietotajs=new Lietotajs();
+                                lietotajvards=rs2.getString("Lietotajvards");
+                                parole1=rs2.getString("Parole");
+                                vards=rs2.getString("Vards");
+                                uzvards=rs2.getString("Uzvards");
+                                dzimsanas_datums=rs2.getString("Dzimsanas_datums");
+                                garums=rs2.getString("Garums");
+                                svars=rs2.getString("Svars");
+                                dzimums=rs2.getString("Dzimums");
+                                lietotajs1 = new Lietotajs(lietotajvards,parole1,vards,uzvards,dzimsanas_datums,dzimums,garums,svars);
                             }
-                            response.sendRedirect("index.htm?lietotajs="+lietotajs);
+                            response.sendRedirect("index.htm?lietotajs="+lietotajs1);
                         }
                    }
                    connection.close();
