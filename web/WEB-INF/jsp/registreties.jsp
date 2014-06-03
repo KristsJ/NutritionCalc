@@ -14,9 +14,9 @@
 <!DOCTYPE html>
 <html>
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
-        <%!String user = "root";%>
-        <%!String psw = "zup1nja*";%>
+        <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
+        <%!String user = "accenture_madara";%>
+        <%!String psw = "85dN17hk1yUEY:x";%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
@@ -80,38 +80,41 @@
             .column1{
                 position: relative;
                 width: 155px;
-                height: 370px;
+                height: 334px;
                 left:350px;
                 top:0px;
                 z-index:2;
                 font-size: 15px;
                 line-height: 36px;
+                background-color: chartreuse;
             }
             .column2{
                 position: relative;
                 width: 170px;
-                height: 370px;
+                height: 334px;
                 left:505px;
-                top:-370px;
+                top:-334px;
                 line-height: 36px;
                 z-index:2;
+                background-color: magenta;
             }
             .button{
                 position: relative;
                 width:315px; 
                 height: 30px; 
                 left:350px;
-                top:-450px;
+                top:-335px;
                 z-index:2;
             }
             .column3{
                 position: relative;
                 width: 170px;
                 left: 675px;
-                top:-770px;
+                top:-698px;
                 line-height: 36px;
                 z-index:2;
-                height: 370px;
+                height: 334px;
+                background-color: cyan;
             }
             .label1{
                 position: relative;
@@ -134,7 +137,7 @@
                 width: 320px;
                 height: 40px;
                 left: 350px;
-                top: -810px;
+                top: -840px;
                 z-index:3;
             }
             .label3{
@@ -176,6 +179,7 @@
 
                                 <input type="text" style="width: 150px; height: 18px" name="userBox" required> *
                                 <input type="password" style="width: 150px; height: 18px" name="passBox" required> *
+                                <input type="password" style="width: 150px; height: 18px" name="passBox2" required> *
                                 <input type="text" style="width: 150px; height: 18px" name="nameBox" required> *
                                 <input type="text" style="width: 150px; height: 18px" name="surnameBox">
                                 <select name="year" style="width: 63px; height: 22px">
@@ -352,7 +356,7 @@
                 
             }
             catch(SQLException sqe){
-                
+                out.println(sqe);
             }
         }
     }
