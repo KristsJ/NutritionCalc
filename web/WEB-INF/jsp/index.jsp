@@ -229,7 +229,7 @@
         out.println(sqe);
     }
     
-    String age = 
+    String age = "vajag aprēķināt gadus";
 %>  
     
     
@@ -255,7 +255,7 @@
                         <%=dzimums%> <br>
                         <%=garums%> cm <br>
                         <%=svars%> kg <br>
-                        18.5
+                        <%=Calendar.getInstance().toString()%>
                     </div>
                 </div>
                 <div class="date">
