@@ -11,6 +11,7 @@ package lv.nutritionCalc.objects;
  * @author Katrina
  */
 public class Lietotajs {
+    private String id;
     private String username;
     private String password;
     private String name;
@@ -31,7 +32,8 @@ public class Lietotajs {
         this.weight="NULL";     
     }
     
-    public Lietotajs(String uname, String pass, String name, String surname, String dateOfBirth, String gender, String height, String weight){
+    public Lietotajs(String id, String uname, String pass, String name, String surname, String dateOfBirth, String gender, String height, String weight){
+        this.id=id;
         this.username=uname;
         this.password=pass;
         this.name=name;
@@ -105,5 +107,8 @@ public class Lietotajs {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+    public String getId(){
+        return this.id;
     }
 }
