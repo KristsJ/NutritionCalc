@@ -78,7 +78,7 @@
                 position: relative;
                 width: auto;
                 height: 120px;
-                top: 30px;
+                top: 80px;
             }
         </style>
         
@@ -92,6 +92,8 @@
             </div>
             <div class="content">
                 <div class="main">
+                    <h1>Log in</h1>
+                    <br>
                     <form name="input" method="post">
                         <input type="text" name="login" style="width: 100px"> login
                         <br></br>
@@ -111,6 +113,7 @@
    
    Connection connection = null;
    PreparedStatement pstatement = null;
+   PreparedStatement pstatement1 = null;
    Class.forName(driverName);
    
    if(login!=null && pass!=null){
@@ -119,13 +122,19 @@
                    connection = DriverManager.getConnection(url, user, psw);
                    String queryString = "SELECT Lietotajvards,Parole FROM lietotajs";
                    pstatement = connection.prepareStatement(queryString);
-                   ResultSet rs1 = pstatement.executeQuery(); 
-                        out.println(login+" "+pass);
+                   ResultSet rs1 = pstatement.executeQuery();
                    while(rs1.next()){
                         String lietotajs = rs1.getString("Lietotajvards");
                         String parole = rs1.getString("Parole");       
                         if(login.equals(lietotajs) && pass.equals(parole)){
-                            response.sendRedirect("index.htm");
+                            String queryString1 = "SELECT idLietotajs FROM lietotajs WHERE Lietotajvards = '"+login+"'";
+                            pstatement1 = connection.prepareStatement(queryString1);
+                            ResultSet rs2 = pstatement1.executeQuery();
+                            String id1="";
+                            while(rs2.next()){
+                                id1=rs2.getString("idLietotajs");
+                            }
+                            response.sendRedirect("index.htm?id="+id1);
                         }
                    }
                    connection.close();

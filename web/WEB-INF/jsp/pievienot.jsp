@@ -57,6 +57,14 @@
                 text-align: center;
             }
             
+            .back{
+                position: relative;
+                width:auto;
+                height:30px;
+                top:30px;
+                left:100px;
+            }
+            
             .content{
                 position: relative;
                 width: auto;
@@ -91,6 +99,9 @@
                 <div class="name">
                     Nutrition and Diet calc
                 </div>
+            </div>
+            <div class="back">
+            <a href="../NutritionCalc/index.htm">Back</a>
             </div>
             <div class="content">
                 <h1>New product / Jauns produkts</h1>
@@ -245,12 +256,7 @@
                                             connection.close();
                                         }
                                     }
-                                    
-                                    //
-                                    //
-                                    //aiziet uz index lapu
-                                    //
-                                    //
+                                    response.sendRedirect("index.htm");
                                 }
                                 catch(SQLException sqe)
                                 { 
