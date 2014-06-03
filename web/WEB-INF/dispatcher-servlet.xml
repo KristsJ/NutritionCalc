@@ -22,7 +22,7 @@
                 <prop key="pievienot.htm">pievienotController</prop>
                 <prop key="login.htm">loginController</prop>
                 <prop key="registreties.htm">registretiesController</prop>
-                <prop key="profils.htm">rprofilsController</prop>
+                <prop key="profils.htm">profilsController</prop>
             </props>
         </property>
     </bean>
