@@ -124,6 +124,16 @@
                 top: 0px;
                 z-index:3;
             }
+            
+            .label4{
+                position: relative;
+                width: 170px;
+                height: 36px;
+                left: 0px;
+                top: 36px;
+                z-index:3;
+            }
+            
             .label2{
                 position: relative;
                 width: 170px;
@@ -137,7 +147,7 @@
                 width: 320px;
                 height: 40px;
                 left: 350px;
-                top: -840px;
+                top: -660px;
                 z-index:3;
             }
             .label3{
@@ -252,6 +262,9 @@
                             <div class="label1">
                                 <label style="color: red; display: none" id="l1">Select another username!</label>
                             </div>
+                            <div class="label4">
+                                <label style="color: red; display: none" id="l4">Passwords does not match!</label>
+                            </div>
                             <div class="label2">
                                 <label style="color: red; display: none" id="l2">Invalid date!</label>
                             </div>
@@ -262,7 +275,7 @@
                     </form>
                     <div class="nextPageBtn">
                         <form action="../NutritionCalc/login.htm">
-                            <input type="submit" value="Log In" style="width:315px;height:30px">
+                            <input type="submit" value="Log In" style="width:310px;height:30px">
                         </form>
                     </div>    
                 </div>
@@ -271,6 +284,7 @@
 <%
     String userName = request.getParameter("userBox");
     String pass = request.getParameter("passBox");
+    String pass2 = request.getParameter("passBox2");
     String name = request.getParameter("nameBox");
     String surname = request.getParameter("surnameBox");
     String gender = request.getParameter("gender");
@@ -286,6 +300,7 @@
     Class.forName(driverName);
     int updateQuery = 0;
     int equal=0;
+    int passError=0;
     int dateError=0;
     int weightError=0;
     if(userName!=null&&pass!=null&&name!=null){
@@ -305,11 +320,12 @@
                         equal++;
                     }
                 }
+                if(!pass.equals(pass2)) passError++;
                 if(date==null || date2==null || date3==null || date=="" || date2=="" || date3=="") dateError++;
                 if((date==null && date2==null && date3==null) || (date=="" && date2=="" && date3=="")) dateError=0;
                 if(weight1==null || weight2==null || weight1=="" || weight2=="") weightError++;
                 if((weight1==null && weight2==null )|| (weight1=="" && weight2=="")) weightError=0;
-                if(equal==0&&dateError==0&&weightError==0){
+                if(equal==0&&dateError==0&&weightError==0&&passError==0){
                     Lietotajs l = new Lietotajs(userName, pass, name);
                     if(surname!=null || gender!=null || height!=null || (weight1!=null && weight2!=null) || (date!=null && date2!=null && date3!=null)){
                         if(surname!="" || gender!="" || height!="" || (weight1!="" && weight2!="") || (date!="" && date2!="" && date3!="")){                            
@@ -340,6 +356,11 @@
                     if(equal!=0){
                         %><script type="text/javascript">
                         document.getElementById("l1").style.display="block";
+                        </script><%
+                    }
+                    if(passError!=0){
+                        %><script type="text/javascript">
+                        document.getElementById("l4").style.display="block";
                         </script><%
                     }
                     if(dateError!=0){
