@@ -22,6 +22,7 @@
                 <prop key="pievienot.htm">pievienotController</prop>
                 <prop key="login.htm">loginController</prop>
                 <prop key="registreties.htm">registretiesController</prop>
+                <prop key="profils.htm">rprofilsController</prop>
             </props>
         </property>
     </bean>
@@ -49,5 +50,9 @@
     <bean name="registretiesController"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController"
         p:viewName="registreties"/>
+    
+    <bean name="profilsController"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+        p:viewName="profils"/>
     
 </beans>
