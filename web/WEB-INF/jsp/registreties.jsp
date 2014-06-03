@@ -163,6 +163,7 @@
                         <div class="column1">
                             Username: <br>
                             Password: <br>
+                            Password again: <br>
                             Name: <br>
                             Surname: <br>
                             Date of birth: <br>
