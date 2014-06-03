@@ -19,9 +19,9 @@
         <title>Nutrition and Diet calc</title>
         
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
-        <%!String user = "root";%>
-        <%!String psw = "zup1nja*";%>
+        <%!String url = "jdbc:mysql://sql5.freemysqlhosting.net:3306/sql542482";%>
+        <%!String user = "sql542482";%>
+        <%!String psw = "dZ4*zE5!*";%>
         
         <style type="text/css">
              body, html {
@@ -193,7 +193,7 @@
     </head>
 
     
-    <% 
+<% 
    Connection connection = null;
    PreparedStatement pstatement = null;
    Class.forName(driverName);
@@ -217,7 +217,7 @@
     { 
         out.println(sqe);
     }
-  %>  
+%>  
     
     
     <body>
