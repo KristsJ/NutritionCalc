@@ -174,21 +174,21 @@
                         PreparedStatement pstatement = null;    //ievieto produkts
                         PreparedStatement pstatement1 = null;   //izgust id produkts
                         PreparedStatement pstatement2 = null;   //ievieto lietotajs_produkts
-                        ResultSet result = null;
                         ResultSet result1 = null;
-                        ResultSet result2 = null;
                         Class.forName(driverName);
                         int updateQuery = 0;
                         int updateQuery2 = 0;
-                        int updateQuery3 = 0;
                         String queryString ="";
                         String queryString1 ="";
                         String queryString2 ="";
                         
                         if(Nosaukums!=null && Mervieniba!=null && kCal!=null){
                             if(Nosaukums!="" && Mervieniba!="" && kCal!="") {
+                                
                                 try {
                                     connection = DriverManager.getConnection(url, user, psw);
+                                    
+                                    //--------------------------------------------------------------
                                     Produkts produkts = new Produkts(Nosaukums, Mervieniba, kCal);
                                     if(Tauki!=null || OglHidr!=null || OlBalt!=null || Sals!=null || TranSk!=null || SkiedrViel!=null || Cukurs!=null){
                                         if(Tauki!="" || OglHidr!="" || OlBalt!="" || Sals!="" || TranSk!="" || SkiedrViel!="" || Cukurs!=""){
@@ -217,8 +217,35 @@
                                     }
                                     queryString = "INSERT INTO produkts(Nosaukums,Mervieniba,kCal,Tauki,OglHidr,OlBalt,Sals,TranSk,SkiedrViel,Cukurs)"
                                             +" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                                    
+                                    pstatement = connection.prepareStatement(queryString);
+                                    pstatement.setString(1, produkts.getNosaukums());
+                                    pstatement.setString(2, produkts.getMervieniba());
+                                    pstatement.setString(3, produkts.getkCal());
+                                    pstatement.setString(4, produkts.getTauki());
+                                    pstatement.setString(5, produkts.getOglHidr());
+                                    pstatement.setString(6, produkts.getOlBalt());
+                                    pstatement.setString(7, produkts.getSals());
+                                    pstatement.setString(8, produkts.getTranSk());
+                                    pstatement.setString(9, produkts.getSkiedrViel());
+                                    pstatement.setString(10, produkts.getCukurs());
+                                    updateQuery = pstatement.executeUpdate();
+                                    //-----------------------------------------------------------------
+                                    queryString1 = "SELECT idProdukts FROM produkts";
+                                    pstatement1 = connection.prepareStatement(queryString1);
+                                    ResultSet rs1 = pstatement1.executeQuery();
+                                    String idProdukts="";
+                                    while(rs1.next()){
+                                        idProdukts=rs1.getString("idProdukts");
+                                    }
+                                    //-----------------------------------------------------------------
+                                    queryString2 = "INSERT INTO lietotajs_produkts(idLietotajs,idProdukts) VALUES(?,?)";
+                                    pstatement2=connection.prepareStatement(queryString2);
+                                    pstatement2.setString(1,lietotajs.getId());
+                                    pstatement2.setString(2,idProdukts);
+                                    updateQuery2 = pstatement2.executeUpdate();
+                                    //-----------------------------------------------------------------
                                     connection.close();
+                                    response.sendRedirect("index.htm");
                                 }
                                 catch(SQLException sqe){
                                     out.println(sqe);
@@ -229,6 +256,13 @@
                                     <%
                                 }
                             }
+                        }
+                        else{
+                        %>
+                                    
+                                    <p style="color:red">Nav ievadīti obligātie lauki!</p>
+                                    
+                        <%
                         }
                         /*
                         String queryString2 ="";
