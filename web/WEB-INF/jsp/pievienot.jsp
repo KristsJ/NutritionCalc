@@ -10,6 +10,7 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="lv.nutritionCalc.objects.Lietotajs"%>
+<%@page import="lv.nutritionCalc.objects.Produkts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -188,7 +189,36 @@
                             if(Nosaukums!="" && Mervieniba!="" && kCal!="") {
                                 try {
                                     connection = DriverManager.getConnection(url, user, psw);
+                                    Produkts produkts = new Produkts(Nosaukums, Mervieniba, kCal);
+                                    if(Tauki!=null || OglHidr!=null || OlBalt!=null || Sals!=null || TranSk!=null || SkiedrViel!=null || Cukurs!=null){
+                                        if(Tauki!="" || OglHidr!="" || OlBalt!="" || Sals!="" || TranSk!="" || SkiedrViel!="" || Cukurs!=""){
+                                            if(Tauki!=null && Tauki!=""){
+                                                produkts.setTauki(Tauki);
+                                            }
+                                            if(OglHidr!=null && OglHidr!=""){
+                                                produkts.setOglHidr(OglHidr);
+                                            }
+                                            if(OlBalt!=null && OlBalt!=""){
+                                                produkts.setOlBalt(OlBalt);
+                                            }
+                                            if(Sals!=null && Sals!=""){
+                                                produkts.setSals(Sals);
+                                            }
+                                            if(TranSk!=null && TranSk!=""){
+                                                produkts.setTranSk(TranSk);
+                                            }
+                                            if(SkiedrViel!=null && SkiedrViel!=""){
+                                                produkts.setSkiedrViel(SkiedrViel);
+                                            }
+                                            if(Cukurs!=null && Cukurs!=""){
+                                                produkts.setCukurs(Cukurs);
+                                            }
+                                        }
+                                    }
+                                    queryString = "INSERT INTO produkts(Nosaukums,Mervieniba,kCal,Tauki,OglHidr,OlBalt,Sals,TranSk,SkiedrViel,Cukurs)"
+                                            +" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                                     
+                                    connection.close();
                                 }
                                 catch(SQLException sqe){
                                     out.println(sqe);

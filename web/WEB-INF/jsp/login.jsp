@@ -96,9 +96,9 @@
                     <h1>Log in</h1>
                     <br>
                     <form name="input" method="post">
-                        <input type="text" name="login" style="width: 100px"> login
+                        <input type="text" name="login" style="width: 100px" value="krists"> login
                         <br></br>
-                        <input type="password" name="pass" style="width: 100px"> password
+                        <input type="password" name="pass" style="width: 100px" value="parole"> password
                         <br></br>
                         <input type="submit" value="Sign in">                    
                     </form>
