@@ -138,6 +138,7 @@
     </head>
     <body>
         <div id="wrap">
+            <%Lietotajs l = (Lietotajs)request.getSession().getAttribute("lietotajs");%>
             <div class="header">
                 <div class="name">
                     Nutrition and Diet calc
@@ -159,7 +160,7 @@
 
                         </div>
                         <div class="column2">
-                            <input type="password" style="width: 150px; height: 18px" name="passBox">
+                            <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>">
                             <input type="password" style="width: 150px; height: 18px" name="passBox2">
                             <input type="text" style="width: 150px; height: 18px" name="nameBox">
                             <input type="text" style="width: 150px; height: 18px" name="surnameBox">
