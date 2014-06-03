@@ -26,13 +26,13 @@ public class Produkts {
         this.Nosaukums=Nosaukums;
         this.Mervieniba=Mervieniba;
         this.kCal=kCal;
-        this.Tauki="NULL";
-        this.OglHidr="NULL";
-        this.OlBalt = "NULL";
-        this.Sals = "NULL";
-        this.TranSk = "NULL";
-        this.SkiedrViel = "NULL";
-        this.Cukurs = "NULL";
+        this.Tauki="0.0";
+        this.OglHidr="0.0";
+        this.OlBalt = "0.0";
+        this.Sals = "0.0";
+        this.TranSk = "0.0";
+        this.SkiedrViel = "0.0";
+        this.Cukurs = "0.0";
     }
     
     public String getNosaukums(){
