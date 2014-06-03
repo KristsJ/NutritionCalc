@@ -1,3 +1,9 @@
+<%-- 
+    Document   : index
+    Created on : May 15, 2014, 05:17:06 PM
+    Author     : Krists
+--%>
+
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
@@ -13,7 +19,7 @@
         <title>Nutrition and Diet calc</title>
         
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.249:3306/diet_calc";%>
+        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
         <%!String user = "root";%>
         <%!String psw = "zup1nja*";%>
         
@@ -186,6 +192,34 @@
         </style>
     </head>
 
+    
+    <% 
+   Connection connection = null;
+   PreparedStatement pstatement = null;
+   Class.forName(driverName);
+   
+    try {
+        connection = DriverManager.getConnection(url, user, psw);
+        String queryString = "SELECT Vards, Uzvards, Dzimsanas_datums, Garums, Svars, Dzimums FROM lietotajs WHERE Lietotajvards = 'krists'";
+        pstatement = connection.prepareStatement(queryString);
+        ResultSet rs1 = pstatement.executeQuery(); 
+        
+        while(rs1.next()){
+            String vards = rs1.getString("Vards");
+            String uzvards = rs1.getString("Uzvards");
+            String dzimsanasDatums = rs1.getString("Dzimsanas_datums");
+            String garums = rs1.getString("Garums");
+            String svars = rs1.getString("Svars");
+            String dzimums = rs1.getString("Dzimums");
+        }
+    }
+    catch(SQLException sqe)
+    { 
+        out.println(sqe);
+    }
+  %>  
+    
+    
     <body>
         <div id="wrap">
             <div class="header">
@@ -194,7 +228,7 @@
                 </div>
                 <div class="personInfo">
                     <div class="personName">
-                            Krists Jankovskis
+                         <label><%=vards %></label>
                     </div>
                     <div class="personColumn1">
                         Age: <br>
@@ -321,44 +355,9 @@
                     </table>
                 </div>
             </div>
-            <div class="Test">
-            <br>
-                    <center><h3>TESTĒŠANA</h3></center>
-                    <br>
-                    <form action="#">
-                    <%
-                    Connection con = null;
-                    PreparedStatement ps = null;
-                    try
-                    {
-                        Class.forName(driverName);
-                        con = DriverManager.getConnection(url,user,psw);
-                        String sql = "SELECT Nosaukums FROM produkts";
-                        ps = con.prepareStatement(sql);
-                        ResultSet rs = ps.executeQuery(); 
-                    %>
-                <p>Select Product :
-                <select>
-                    <%
-                        while(rs.next())
-                        {
-                        String fname = rs.getString("Nosaukums"); 
-                    %>
-                <option value="<%=fname %>"><%=fname %></option>
-                    <%
-                        }
-                    %>
-                </select>
-                </p>
-                    <%
-                        }
-                        catch(SQLException sqe)
-                        { 
-                        out.println(sqe);
-                        }
-                    %>
-                </form>
-        </div>
+            
         </div>
     </body>
 </html>
+
+
