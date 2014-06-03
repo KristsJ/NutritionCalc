@@ -309,8 +309,10 @@
                         <%=svars%> <br>
                         18.5
                     </div>
-                    <div class="profile">
-                        <input type="submit" style="width: 100px" value="Edit profile">
+                    <div class="profile">                    
+                        <form action="../NutritionCalc/profils.htm">
+                            <input type="submit" value="Edit profile" style="width: 100px">
+                        </form>
                     </div>
                 </div>
                 <div class="menuStrip">
