@@ -151,7 +151,7 @@
                                 garums=rs2.getString("Garums");
                                 svars=rs2.getString("Svars");
                                 dzimums=rs2.getString("Dzimums");
-                                lietotajs1 = new Lietotajs(lietotajvards,parole1,vards,uzvards,dzimsanas_datums,dzimums,garums,svars);
+                                lietotajs1 = new Lietotajs(id,lietotajvards,parole1,vards,uzvards,dzimsanas_datums,dzimums,garums,svars);
                             }
                             request.getSession().setAttribute("lietotajs",lietotajs1);
                             response.sendRedirect("index.htm");

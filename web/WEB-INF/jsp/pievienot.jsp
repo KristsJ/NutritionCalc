@@ -167,12 +167,15 @@
                         String TranSk = request.getParameter("transk");
                         String SkiedrViel = request.getParameter("skiedrv");
                         String Cukurs = request.getParameter("cukurs");
-                        Lietotajs lietotajs = request.getParameter("lietotajs");
+                        Lietotajs lietotajs = (Lietotajs)request.getSession().getAttribute("lietotajs");
                         
                         Connection connection = null;
                         PreparedStatement pstatement = null;    //ievieto produkts
                         PreparedStatement pstatement1 = null;   //izgust id produkts
                         PreparedStatement pstatement2 = null;   //ievieto lietotajs_produkts
+                        ResultSet result = null;
+                        ResultSet result1 = null;
+                        ResultSet result2 = null;
                         Class.forName(driverName);
                         int updateQuery = 0;
                         int updateQuery2 = 0;
@@ -185,9 +188,15 @@
                             if(Nosaukums!="" && Mervieniba!="" && kCal!="") {
                                 try {
                                     connection = DriverManager.getConnection(url, user, psw);
+                                    
                                 }
                                 catch(SQLException sqe){
                                     out.println(sqe);
+                                    %>
+                                    
+                                    <p style="color:red">Ievadītas nepareizas vērtības!</p>
+                                    
+                                    <%
                                 }
                             }
                         }
@@ -288,11 +297,6 @@
                                 catch(SQLException sqe)
                                 { 
                                     out.println(sqe);*/
-                                    %>
-                                    
-                                    <p style="color:red">Ievadītas nepareizas vērtības!</p>
-                                    
-                                    <%
                                 //}
                             //}
                        // }
