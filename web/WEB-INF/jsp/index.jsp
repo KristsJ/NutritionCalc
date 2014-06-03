@@ -4,6 +4,8 @@
     Author     : Krists
 --%>
 
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
@@ -198,6 +200,13 @@
    PreparedStatement pstatement = null;
    Class.forName(driverName);
    
+   String vards = "";
+   String uzvards = "";
+   String dzimsanasDatums = "";
+   String garums = "";
+   String svars = "";
+   String dzimums = "";
+   
     try {
         connection = DriverManager.getConnection(url, user, psw);
         String queryString = "SELECT Vards, Uzvards, Dzimsanas_datums, Garums, Svars, Dzimums FROM lietotajs WHERE Lietotajvards = 'krists'";
@@ -205,18 +214,22 @@
         ResultSet rs1 = pstatement.executeQuery(); 
         
         while(rs1.next()){
-            String vards = rs1.getString("Vards");
-            String uzvards = rs1.getString("Uzvards");
-            String dzimsanasDatums = rs1.getString("Dzimsanas_datums");
-            String garums = rs1.getString("Garums");
-            String svars = rs1.getString("Svars");
-            String dzimums = rs1.getString("Dzimums");
+            vards = rs1.getString("Vards");
+            uzvards = rs1.getString("Uzvards");
+            dzimsanasDatums = rs1.getString("Dzimsanas_datums");
+            garums = rs1.getString("Garums");
+            svars = rs1.getString("Svars");
+            dzimums = rs1.getString("Dzimums");
         }
+        
+        connection.close();
     }
     catch(SQLException sqe)
     { 
         out.println(sqe);
     }
+    
+    String age = 
 %>  
     
     
@@ -228,7 +241,7 @@
                 </div>
                 <div class="personInfo">
                     <div class="personName">
-                         <label>Vārds Uzvārds</label>
+                         <%=vards + " " + uzvards%>
                     </div>
                     <div class="personColumn1">
                         Age: <br>
@@ -238,10 +251,10 @@
                         <a href title="Body mass index">BMI:</a>
                     </div>
                     <div class="personColumn2">
-                        21 <br>
-                        Vīrietis <br>
-                        188 cm <br>
-                        67.5 kg <br>
+                        <%=dzimsanasDatums%> <br>
+                        <%=dzimums%> <br>
+                        <%=garums%> cm <br>
+                        <%=svars%> kg <br>
                         18.5
                     </div>
                 </div>
@@ -257,7 +270,7 @@
                         <option value="Coca Cola">Coca Cola</option>
                     </select>
                     <ul>
-                        <li><a href="#">Add product</a></li>
+                        <li><a href="../NutritionCalc/pievienot.htm">Add product</a></li>
                         <li><a href="#">Edit product</a></li>
                         <li><a href="#">Delete product</a></li>
                     </ul>
