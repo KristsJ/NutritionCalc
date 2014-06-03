@@ -4,6 +4,8 @@
     Author     : Krists
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.SQLException"%>
@@ -200,16 +202,19 @@
    PreparedStatement pstatement = null;
    Class.forName(driverName);
    
+   String id = "";
    String vards = "";
    String uzvards = "";
-   String dzimsanasDatums = "";
-   String garums = "";
-   String svars = "";
-   String dzimums = "";
+   String dzimsanasDatums = "-";
+   String garums = "-";
+   String svars = "-";
+   String dzimums = "-";
    
     try {
+        id = request.getParameter("id"); 
+        
         connection = DriverManager.getConnection(url, user, psw);
-        String queryString = "SELECT Vards, Uzvards, Dzimsanas_datums, Garums, Svars, Dzimums FROM lietotajs WHERE Lietotajvards = 'krists'";
+        String queryString = "SELECT Vards, Uzvards, Dzimsanas_datums, Garums, Svars, Dzimums FROM lietotajs WHERE idLietotajs = " + id;
         pstatement = connection.prepareStatement(queryString);
         ResultSet rs1 = pstatement.executeQuery(); 
         
@@ -229,7 +234,29 @@
         out.println(sqe);
     }
     
-    String age = "vajag aprēķināt gadus";
+    Calendar c = Calendar.getInstance();
+    
+    String tempD = c.get(Calendar.DATE) + "";
+    String tempM = (c.get(Calendar.MONTH) + 1) + "";
+    
+    String dd = "";
+    String mm = "";
+    String yyyy = c.get(Calendar.YEAR) + "";
+    //Sring day = c.
+    
+    if (tempD.length() == 1)
+    {
+        dd = "0" + tempD;
+    }
+    
+    if (tempM.length() == 1)
+    {
+        mm = "0" + tempM;
+    }
+
+    String currentDate = dd + "." + mm + "." + yyyy;
+
+    String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(c.get);
 %>  
     
     
@@ -255,11 +282,11 @@
                         <%=dzimums%> <br>
                         <%=garums%> cm <br>
                         <%=svars%> kg <br>
-                        <%=Calendar.getInstance().toString()%>
+                        18.5
                     </div>
                 </div>
                 <div class="date">
-                    Friday, 09.05.2014.
+                    Friday, <%=currentDate%>
                 </div>
                 <div class="menu">
                     Choose the product:
@@ -270,7 +297,8 @@
                         <option value="Coca Cola">Coca Cola</option>
                     </select>
                     <ul>
-                        <li><a href="../NutritionCalc/pievienot.htm">Add product</a></li>
+                        
+                        <li><a href="../NutritionCalc/pievienot.htm?id="<%=id%>">Add product</a></li>
                         <li><a href="#">Edit product</a></li>
                         <li><a href="#">Delete product</a></li>
                     </ul>
