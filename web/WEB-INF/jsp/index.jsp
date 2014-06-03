@@ -18,10 +18,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
         
-        <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://sql5.freemysqlhosting.net:3306/sql542482";%>
-        <%!String user = "sql542482";%>
-        <%!String psw = "dZ4*zE5!*";%>
+        <%!String driverName = "com.mysql.jdbc.Driver";%>
+        <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
+        <%!String user = "accenture_madara";%>
+        <%!String psw = "85dN17hk1yUEY:x";%>
         
         <style type="text/css">
              body, html {
@@ -228,7 +228,7 @@
                 </div>
                 <div class="personInfo">
                     <div class="personName">
-                         <label><%=vards %></label>
+                         <label>Vārds Uzvārds</label>
                     </div>
                     <div class="personColumn1">
                         Age: <br>
