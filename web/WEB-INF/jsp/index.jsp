@@ -28,6 +28,27 @@
         <%!String user = "accenture_madara";%>
         <%!String psw = "85dN17hk1yUEY:x";%>
         
+        
+        <script type="text/javascript">
+            function displayResult()
+            {
+                document.getElementById("myTable").insertRow(1).innerHTML = '\
+                <td align="center">Yoghurt</td>\n\
+                <td align="center">gr.</td>\n\
+                <td align="center">350</td>\n\
+                <td align="center">200</td>\n\
+                <td align="center">700</td>\n\
+                <td align="center">77.7 g</td>\n\
+                <td align="center">7.8 g</td>\n\
+                <td align="center">12.0 g</td>\n\
+                <td align="center">15.3 g</td>\n\
+                <td align="center">3.1 g</td>\n\
+                <td align="center">0.0 g</td>\n\
+                <td align="center">4.8 g</td>';
+            }
+        </script>
+        
+        
         <style type="text/css">
              body, html {
 	        background-color: #A0FFA0;
@@ -344,7 +365,7 @@
                         <option value="Coca Cola">Coca Cola</option>
                     </select>
                     <form name="input">
-                        <input type="text" style="width: 100px"> X <input type="submit" style="width: 75px" value="Add">
+                        <input type="text" style="width: 100px"> X <button type="button" style="width: 75px" onclick="displayResult()">Add</button>
                     </form>
                 </div>
                 <br />
@@ -358,7 +379,7 @@
                 </div>
                 <br />
                 <div class="table">
-                    <table style="border: 1px solid black; border-collapse: collapse; width: 950px" align="center" cellpadding="5">
+                    <table id="myTable" style="border: 1px solid black; border-collapse: collapse; width: 950px" align="center" cellpadding="5">
                         <tr style="background-color: purple; color: white" align="center"> 
                             <th>Product</th>
                             <th><b>X</b></td>
@@ -372,34 +393,6 @@
                             <th><b>Of which saturates</b></td>
                             <th><b>Salt</b></td>
                             <th><b>Fibre</b></td>
-                        </tr>
-                        <tr align="center">
-                            <td><b>Yoghurt</b></td>
-                            <td><b>gr.</b></td> 
-                            <td><b>350</b></td>
-                            <td><b>200</b></td>
-                            <td><b>700</b></td>
-                            <td><b>77.7 g</b></td>
-                            <td><b>7.8 g</b></td>
-                            <td><b>12.0 g</b></td>
-                            <td><b>15.3 g</b></td>
-                            <td><b>3.1 g</b></td>
-                            <td><b>0.0 g</b></td>
-                            <td><b>4.8 g</b></td>
-                        </tr>
-                        <tr align="center">
-                          <td><b>Coca Cola</b></td>
-                            <td><b>ml.</b></td> 
-                            <td><b>57</b></td>
-                            <td><b>50</b></td>
-                            <td><b>27.5</b></td>
-                            <td><b>15.9 g</b></td>
-                            <td><b>10.3 g</b></td>
-                            <td><b>1.0 g</b></td>
-                            <td><b>4.5 g</b></td>
-                            <td><b>0.0 g</b></td>
-                            <td><b>0.0 g</b></td>
-                            <td><b>0.0 g</b></td>
                         </tr>
                         <tr align="center">
                             <td colspan="4" align="right"><b>Total:</b></td>
