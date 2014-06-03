@@ -30,6 +30,17 @@ public class Lietotajs {
         this.height="NULL";
         this.weight="NULL";     
     }
+    
+    public Lietotajs(String uname, String pass, String name, String surname, String dateOfBirth, String gender, String height, String weight){
+        this.username=uname;
+        this.password=pass;
+        this.name=name;
+        this.surname=surname;
+        this.dateOfBirth=dateOfBirth;
+        this.gender=gender;
+        this.height=height;
+        this.weight=weight;     
+    }
 
     public String getUsername() {
         return username;

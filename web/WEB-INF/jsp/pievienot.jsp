@@ -167,11 +167,24 @@
                         String SkiedrViel = request.getParameter("skiedrv");
                         String Cukurs = request.getParameter("cukurs");
                         
+                        Connection connection = null;
+                        PreparedStatement pstatement = null;    //ievieto produkts
+                        PreparedStatement pstatement1 = null;   //izgust id produkts
+                        PreparedStatement pstatement2 = null;   //ievieto lietotajs_produkts
+                        Class.forName(driverName);
+                        int updateQuery = 0;
+                        int updateQuery2 = 0;
+                        int updateQuery3 = 0;
+                        String queryString ="";
+                        String queryString1 ="";
+                        String queryString2 ="";
+                        /*
                         String queryString2 ="";
                         Connection connection = null;
-                        PreparedStatement pstatement = null;
-                        PreparedStatement pstatement1 = null;
+                        PreparedStatement pstatement = null;    //ievieto sakuma
+                        PreparedStatement pstatement1 = null;   //izgust id produktam
                         PreparedStatement pstatement2 = null;
+                        
                         Class.forName(driverName);
                         int updateQuery = 0;
                         int updateQuery2 = 0;
@@ -258,17 +271,18 @@
                                     }
                                     response.sendRedirect("index.htm");
                                 }
+                        
                                 catch(SQLException sqe)
                                 { 
-                                    out.println(sqe);
+                                    out.println(sqe);*/
                                     %>
                                     
                                     <p style="color:red">Ievadītas nepareizas vērtības!</p>
                                     
                                     <%
-                                }
-                            }
-                        }
+                                //}
+                            //}
+                       // }
                         
                     %>
                 </div>

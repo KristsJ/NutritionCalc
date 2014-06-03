@@ -127,14 +127,24 @@
                         String lietotajs = rs1.getString("Lietotajvards");
                         String parole = rs1.getString("Parole");       
                         if(login.equals(lietotajs) && pass.equals(parole)){
-                            String queryString1 = "SELECT idLietotajs FROM lietotajs WHERE Lietotajvards = '"+login+"'";
+                            String queryString1 = "SELECT * FROM lietotajs WHERE Lietotajvards = '"+login+"'";
                             pstatement1 = connection.prepareStatement(queryString1);
                             ResultSet rs2 = pstatement1.executeQuery();
-                            String id1="";
+                            String id="";
+                            String lietotajvards="";
+                            String parole1="";
+                            String vards="";
+                            String uzvards="";
+                            String dzimsanas_datums="";
+                            String garums="";
+                            String svars="";
+                            String dzimums="";
                             while(rs2.next()){
-                                id1=rs2.getString("idLietotajs");
+                                id=rs2.getString("idLietotajs");
+                                
+                                Lietotajs lietotajs=new Lietotajs();
                             }
-                            response.sendRedirect("index.htm?id="+id1);
+                            response.sendRedirect("index.htm?lietotajs="+lietotajs);
                         }
                    }
                    connection.close();
