@@ -13,6 +13,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -69,7 +70,7 @@
             .personInfo {
                 position: relative;
                 width: 200px;
-                height: 125px;
+                height: 150px;
                 left: 20px;
                 font-family: arial;
                 font-style: italic;
@@ -118,8 +119,8 @@
                 position: relative;
                 float: right;
                 width: 200px;
-                height: 125px;
-                top: -125px;
+                height: 150px;
+                top: -150px;
                 right: 20px;
                 font-family: arial;
                 font-style: italic;
@@ -143,10 +144,10 @@
                 color: gold;
             }
             
-            .date {
+            .menuStrip {
                 position: absolute;
                 width: 990px;
-                height: 125px;
+                height: 150px;
                 top: 120px;
                 left: 0px;
                 text-align: center;
@@ -156,6 +157,13 @@
                 font-weight: bold;
                 line-height: 125px;
                 background-color: darkorchid;
+            }
+            
+            .profile {
+                position: relative;
+                width: 100px;
+                height: 25px;
+                margin-left: 50px;
             }
             
             .content {
@@ -198,41 +206,50 @@
 
     
 <% 
-   Connection connection = null;
-   PreparedStatement pstatement = null;
-   Class.forName(driverName);
-   
-   String id = "";
-   String vards = "";
-   String uzvards = "";
-   String dzimsanasDatums = "-";
-   String garums = "-";
-   String svars = "-";
-   String dzimums = "-";
-   
-    try {
-        id = request.getParameter("id"); 
+    Lietotajs lietotajs = (Lietotajs)request.getSession().getAttribute("lietotajs");
+
+    String id = lietotajs.getId() + "";
+    String vards = lietotajs.getName() + "";
+    String uzvards = lietotajs.getSurname() + "";
+    String dzimsanasDatums = lietotajs.getDateOfBirth() + "";
+    String garums = lietotajs.getHeight() + "";
+    String svars = lietotajs.getWeight() + "";
+    String dzimums = lietotajs.getGender() + "";
         
-        connection = DriverManager.getConnection(url, user, psw);
-        String queryString = "SELECT Vards, Uzvards, Dzimsanas_datums, Garums, Svars, Dzimums FROM lietotajs WHERE idLietotajs = " + id;
-        pstatement = connection.prepareStatement(queryString);
-        ResultSet rs1 = pstatement.executeQuery(); 
-        
-        while(rs1.next()){
-            vards = rs1.getString("Vards");
-            uzvards = rs1.getString("Uzvards");
-            dzimsanasDatums = rs1.getString("Dzimsanas_datums");
-            garums = rs1.getString("Garums");
-            svars = rs1.getString("Svars");
-            dzimums = rs1.getString("Dzimums");
-        }
-        
-        connection.close();
+    //--------------------------
+    
+    if (garums.equals("null"))
+    {
+        garums = "-";
     }
-    catch(SQLException sqe)
-    { 
-        out.println(sqe);
+    else
+    {
+        garums += " cm";
     }
+    
+    if (svars.equals("null"))
+    {
+        svars = "-";
+    }
+    else
+    {
+        svars += " kg";
+    }
+    
+    if (dzimums.equals("V"))
+    {
+        dzimums = "Men";
+    }
+    else if (dzimums.equals("S"))
+    {
+        dzimums = "Women";
+    }
+    else
+    {
+        dzimums = "-";
+    }
+    
+    //------------------------------------
     
     Calendar c = Calendar.getInstance();
     
@@ -242,7 +259,6 @@
     String dd = "";
     String mm = "";
     String yyyy = c.get(Calendar.YEAR) + "";
-    //Sring day = c.
     
     if (tempD.length() == 1)
     {
@@ -254,13 +270,13 @@
         mm = "0" + tempM;
     }
 
+    String currentDate = dd + "." + mm + "." + yyyy;
+
+    //---------------------------------
+    
     int day = Integer.parseInt(tempD);
     int month = Integer.parseInt(tempM);
     int year = Integer.parseInt(yyyy);
-    
-    String currentDate = dd + "." + mm + "." + yyyy;
-
-    
     
     String dateString = String.format("%d-%d-%d", year, month, day);
     Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
@@ -289,12 +305,15 @@
                     <div class="personColumn2">
                         <%=dzimsanasDatums%> <br>
                         <%=dzimums%> <br>
-                        <%=garums%> cm <br>
-                        <%=svars%> kg <br>
+                        <%=garums%> <br>
+                        <%=svars%> <br>
                         18.5
                     </div>
+                    <div class="profile">
+                        <input type="submit" style="width: 100px" value="Edit profile">
+                    </div>
                 </div>
-                <div class="date">
+                <div class="menuStrip">
                     <%=dayOfWeek + ", " + currentDate%>
                 </div>
                 <div class="menu">
@@ -307,7 +326,7 @@
                     </select>
                     <ul>
                         
-                        <li><a href="../NutritionCalc/pievienot.htm?id="<%=id%>">Add product</a></li>
+                        <li><a href="../NutritionCalc/pievienot.htm">Add product</a></li>
                         <li><a href="#">Edit product</a></li>
                         <li><a href="#">Delete product</a></li>
                     </ul>
