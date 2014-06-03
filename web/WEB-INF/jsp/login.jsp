@@ -16,9 +16,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
-        <%!String user = "root";%>
-        <%!String psw = "zup1nja*";%>
+        <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
+        <%!String user = "accenture_madara";%>
+        <%!String psw = "85dN17hk1yUEY:x";%>
         
         <title>Nutrition and Diet calc</title>
         <style type="text/css">
@@ -120,16 +120,15 @@
                    String queryString = "SELECT Lietotajvards,Parole FROM lietotajs";
                    pstatement = connection.prepareStatement(queryString);
                    ResultSet rs1 = pstatement.executeQuery(); 
-                   connection.close();
+                        out.println(login+" "+pass);
                    while(rs1.next()){
                         String lietotajs = rs1.getString("Lietotajvards");
-                        String parole = rs1.getString("Parole");
-              
-                        if(login==lietotajs && pass==parole){
-                            out.println("autorizejas");
-                            //response.sendRedirect("index.htm");
+                        String parole = rs1.getString("Parole");       
+                        if(login.equals(lietotajs) && pass.equals(parole)){
+                            response.sendRedirect("index.htm");
                         }
                    }
+                   connection.close();
                    
               }
               catch(SQLException sqe){ 

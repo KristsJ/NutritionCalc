@@ -13,9 +13,9 @@
 <!DOCTYPE html>
 <html>
         <%! String driverName = "com.mysql.jdbc.Driver";%>
-        <%!String url = "jdbc:mysql://10.1.52.8:3306/diet_calc";%>
-        <%!String user = "root";%>
-        <%!String psw = "zup1nja*";%>
+        <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
+        <%!String user = "accenture_madara";%>
+        <%!String psw = "85dN17hk1yUEY:x";%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>Nutrition and Diet calc</title>
@@ -254,7 +254,7 @@
                                 }
                                 catch(SQLException sqe)
                                 { 
-                                    //out.println(sqe);
+                                    out.println(sqe);
                                     %>
                                     
                                     <p style="color:red">Ievadītas nepareizas vērtības!</p>
