@@ -9,6 +9,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -166,6 +167,7 @@
                         String TranSk = request.getParameter("transk");
                         String SkiedrViel = request.getParameter("skiedrv");
                         String Cukurs = request.getParameter("cukurs");
+                        Lietotajs lietotajs = request.getParameter("lietotajs");
                         
                         Connection connection = null;
                         PreparedStatement pstatement = null;    //ievieto produkts
@@ -178,6 +180,17 @@
                         String queryString ="";
                         String queryString1 ="";
                         String queryString2 ="";
+                        
+                        if(Nosaukums!=null && Mervieniba!=null && kCal!=null){
+                            if(Nosaukums!="" && Mervieniba!="" && kCal!="") {
+                                try {
+                                    connection = DriverManager.getConnection(url, user, psw);
+                                }
+                                catch(SQLException sqe){
+                                    out.println(sqe);
+                                }
+                            }
+                        }
                         /*
                         String queryString2 ="";
                         Connection connection = null;

@@ -153,7 +153,8 @@
                                 dzimums=rs2.getString("Dzimums");
                                 lietotajs1 = new Lietotajs(lietotajvards,parole1,vards,uzvards,dzimsanas_datums,dzimums,garums,svars);
                             }
-                            response.sendRedirect("index.htm?lietotajs="+lietotajs1);
+                            request.getSession().setAttribute("lietotajs",lietotajs1);
+                            response.sendRedirect("index.htm");
                         }
                    }
                    connection.close();
