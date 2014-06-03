@@ -254,9 +254,18 @@
         mm = "0" + tempM;
     }
 
+    int day = Integer.parseInt(tempD);
+    int month = Integer.parseInt(tempM);
+    int year = Integer.parseInt(yyyy);
+    
     String currentDate = dd + "." + mm + "." + yyyy;
 
-    String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(c.get);
+    
+    
+    String dateString = String.format("%d-%d-%d", year, month, day);
+    Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
+
+    String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
 %>  
     
     
@@ -286,7 +295,7 @@
                     </div>
                 </div>
                 <div class="date">
-                    Friday, <%=currentDate%>
+                    <%=dayOfWeek + ", " + currentDate%>
                 </div>
                 <div class="menu">
                     Choose the product:
