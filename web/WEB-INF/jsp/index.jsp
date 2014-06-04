@@ -33,51 +33,16 @@
         
         <script type="text/javascript">
             
-            <%
-                /*try {
-                    
-                    Lietotajs l = (Lietotajs)request.getSession().getAttribute("lietotajs");
-                    
-                    int updateQuery = 0;
-                    
-                    Connection connection = null;
-
-                    PreparedStatement pstatement1 = null;
-                    PreparedStatement pstatement2 = null;
-                    PreparedStatement pstatement3 = null;
-                    Class.forName(driverName);
-
-                    connection = DriverManager.getConnection(url, user, psw);
-                    
-                    String queryString1 = "SELECT idProdukts FROM produkts WHERE Nosaukums = '"+login+"'" + 
-                    String queryString1 = "SELECT * FROM lietotajs WHERE Lietotajvards = '"+login+"'";
-                    String queryString3 = "INSERT INTO apests "
-                            + "(idLietotajs, idProdukts, Daudzums, Datums)"
-                            + " VALUES (?, ?, ?, ?)";
-
-                    pstatement3 = connection.prepareStatement(queryString3);
-                    pstatement3.setString(1, l.getId());
-                    pstatement3.setString(2, "");
-                    pstatement3.setString(3, "");
-                    pstatement3.setString(4, "");
-                    updateQuery = pstatement3.executeUpdate();
-                    
-                    connection.close();                    
-                }
-
-                catch(SQLException sqe) { 
-                      out.println(sqe);
-                }*/
-            %>
-    
-    
             function displayResult()
             {
                 document.getElementById("myTable").insertRow(1).innerHTML = '\
-                <td align="center">Test</td>\n\
-                <td align="center">gr.</td>\n\
-                <td align="center">350</td>\n\
-                <td align="center">200</td>\n\
+                <td align="center">Lietotāja ID :</td>\n\
+                <td align="center">ProdID:</td>\n\
+                <td align="center">\n\
+                    <%
+                        String daudzums = request.getParameter("cikDaudz");
+                    %><%=daudzums%></td>\n\
+                <td align="center">Date:</td>\n\
                 <td align="center">700</td>\n\
                 <td align="center">77.7 g</td>\n\
                 <td align="center">7.8 g</td>\n\
@@ -282,7 +247,7 @@
         garums += " cm";
     }
     
-    if (svars.equals("0.0"))
+    if (svars.equals("0"))
     {
         svars = "-";
     }
@@ -306,32 +271,32 @@
     
     //------------------------------------
     
-    Calendar c = Calendar.getInstance();
+    Calendar c1 = Calendar.getInstance();
     
-    String tempD = c.get(Calendar.DATE) + "";
-    String tempM = (c.get(Calendar.MONTH) + 1) + "";
+    String tempD = c1.get(Calendar.DATE) + "";
+    String tempM = (c1.get(Calendar.MONTH) + 1) + "";
     
-    String dd = "";
-    String mm = "";
-    String yyyy = c.get(Calendar.YEAR) + "";
+    String dd1 = "";
+    String mm1 = "";
+    String yyyy1 = c1.get(Calendar.YEAR) + "";
     
     if (tempD.length() == 1)
     {
-        dd = "0" + tempD;
+        dd1 = "0" + tempD;
     }
     
     if (tempM.length() == 1)
     {
-        mm = "0" + tempM;
+        mm1 = "0" + tempM;
     }
 
-    String currentDate = dd + "." + mm + "." + yyyy;
+    String currentDate = dd1 + "." + mm1 + "." + yyyy1;
 
     //---------------------------------
     
     int day = Integer.parseInt(tempD);
     int month = Integer.parseInt(tempM);
-    int year = Integer.parseInt(yyyy);
+    int year = Integer.parseInt(yyyy1);
     
     String dateString = String.format("%d-%d-%d", year, month, day);
     Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
@@ -466,8 +431,8 @@
                         %>
                         --%>
                     </select>
-                    <form name="input">
-                        <input type="text" style="width: 100px"> X 
+                    <form name="input" method="get">
+                        <input type="text" name="cikDaudz" style="width: 100px"> X 
                         <button type="button" style="width: 75px" 
                                 onclick="displayResult()">Add</button>
                     </form>
