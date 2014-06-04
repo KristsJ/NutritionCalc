@@ -341,7 +341,6 @@
     String id = lietotajs.getId() + "";
     String vards = lietotajs.getName() + "";
     String uzvards = lietotajs.getSurname() + "";
-    String dzimsanasDatums = lietotajs.getDateOfBirth() + "";
     String garums = lietotajs.getHeight() + "";
     String svars = lietotajs.getWeight() + "";
     String dzimums = lietotajs.getGender() + "";
@@ -433,11 +432,11 @@
                         <a href title="Body mass index">BMI:</a>
                     </div>
                     <div class="personColumn2">
-                        <%=dzimsanasDatums%> <br>
+                        <%=lietotajs.getAge()%> <br>
                         <%=dzimums%> <br>
                         <%=garums%> <br>
                         <%=svars%> <br>
-                        18.5
+                        <%=lietotajs.getBMI()%>
                     </div>
                     <div class="profile">                    
                         <form action="../NutritionCalc/profils.htm">
