@@ -23,6 +23,7 @@
                 <prop key="login.htm">loginController</prop>
                 <prop key="registreties.htm">registretiesController</prop>
                 <prop key="profils.htm">profilsController</prop>
+                <prop key="produkts_edit.htm">produkts_editController</prop>
             </props>
         </property>
     </bean>
@@ -54,5 +55,9 @@
     <bean name="profilsController"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController"
         p:viewName="profils"/>
+    
+    <bean name="produkts_editController"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+        p:viewName="produkts_edit"/>
     
 </beans>
