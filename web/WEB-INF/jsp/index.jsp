@@ -411,7 +411,7 @@
                     <form name="input" method="get">
                         <input type="text" name="cikDaudz" style="width: 100px"> X 
                         <button type="button" style="width: 75px" 
-                                onclick="javascript:displayResult();">Add</button>
+                                onclick="UzzimetTabulu()">Add</button>
                     </form>
                 </div>
                 <br />
@@ -428,19 +428,33 @@
                     <table id="myTable" style="border: 1px solid black; 
                            border-collapse: collapse; width: 950px" align="center" cellpadding="5">
                         <tr style="background-color: purple; color: white" align="center"> 
-                            <th>Product</th>
-                            <th><b>X</b></th>
-                            <th><b>Kcal. / 100</b></th>
-                            <th><b>Value</b></th>
-                            <th><b>Kcal.</b></th>
-                            <th><b>Carbohydrate</b></th>
-                            <th><b>Of which sugars</b></th>
-                            <th><b>Protein</b></th>
-                            <th><b>Fat</b></th>
-                            <th><b>Of which saturates</b></th>
-                            <th><b>Salt</b></th>
-                            <th><b>Fibre</b></th>
+                            <td>Product</td>
+                            <td><b>X</b></td>
+                            <td><b>Kcal. / 100</b></td>
+                            <td><b>Value</b></td>
+                            <td><b>Kcal.</b></td>
+                            <td><b>Carbohydrate</b></td>
+                            <td><b>Of which sugars</b></td>
+                            <td><b>Protein</b></td>
+                            <td><b>Fat</b></td>
+                            <td><b>Of which saturates</b></td>
+                            <td><b>Salt</b></td>
+                            <td><b>Fibre</b></td>
                         </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12</td>
+                            </tr>
                         <!--tr align="center">
                             <td colspan="4" align="right"><b>Total:</b></td>
                             <td><b>727.5</b></td>
@@ -464,6 +478,46 @@
                             <td><b>24 g</b></td>
                         </tr-->
                     </table>
+                    
+                    
+
+                <button onclick="UzzimetTabulu()">ParaditTabulu</button>
+                
+
+<script>
+function UzzimetTabulu()
+            {
+               var table = document.getElementById("myTable");
+  {    
+  var row = table.insertRow(table.rows.length);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3); 
+  var cell5 = row.insertCell(4); 
+  var cell6 = row.insertCell(5); 
+  var cell7 = row.insertCell(6); 
+  var cell8 = row.insertCell(7); 
+  var cell9 = row.insertCell(8); 
+  var cell10 = row.insertCell(9); 
+  var cell11 = row.insertCell(10); 
+  var cell12 = row.insertCell(11); 
+  cell1.innerHTML = "NEW CELL1";
+  cell2.innerHTML = "NEW CELL2";
+  cell3.innerHTML = "kjkh";
+  cell4.innerHTML = "teksts4";
+  cell5.innerHTML = "teksts5";
+  cell6.innerHTML = "teksts6";
+  cell7.innerHTML = "teksts7";
+  cell8.innerHTML = "teksts8";
+  cell9.innerHTML = "teksts9";
+  cell10.innerHTML = "teksts10";
+  cell11.innerHTML = "teksts11";
+  cell12.innerHTML = "teksts12";
+  
+}
+}
+</script>
                 </div>
             </div>
             
@@ -521,15 +575,15 @@
     }
 %>
 
-<script type="text/javascript">
+<script>
             function ieliktDatubaze(){
                 //String nosProdukts = request.getParameter("myProductsToEat");
             }
-            function displayResult()
+            function UzzimetTabulu1()
             {
-                            var table = document.getElementById("myTable");
-                            var row = table.insertRow(0);
-                            
+                out.println("hello");
+                            var table = document.getElementById("myTable");{
+                            var row = table.insertRow(2);
                             var cell1 = row.insertCell(0);                            
                             var cell2 = row.insertCell(1);
                             var cell3 = row.insertCell(2);
@@ -554,6 +608,7 @@
                             cell10.innerHTML = "teksts10";
                             cell11.innerHTML = "teksts11";
                             cell12.innerHTML = "teksts12";
+                        }
                 /*
                             ArrayList <Produkts> produkti = new ArrayList<Produkts>();
                             ArrayList <String> idProduktiem = new ArrayList<String>();
