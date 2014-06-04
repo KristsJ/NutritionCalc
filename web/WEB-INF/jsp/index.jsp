@@ -33,13 +33,16 @@
         
         <script type="text/javascript">
             function ieliktDatubaze(){
-                
+                //String nosProdukts = request.getParameter("myProductsToEat");
             }
             function displayResult()
             {
+                            ArrayList <Produkts> produkti = new ArrayList<Produkts>();
+                            ArrayList <String> idProduktiem = new ArrayList<String>();
+                            ArrayList <String> daudzumi = new ArrayList<String>();
+                            ArrayList <String> sakumaKcal = new ArrayList<String>();
                     try{
-                        //String nosProdukts = request.getParameter("myProductsToEat");
-                        Lietotajs lietotajs = (Lietotajs)request.getSession().getAttribute("lietotajs");
+                            Lietotajs lietotajs1 = (Lietotajs)request.getSession().getAttribute("lietotajs");
                             Connection connection = null;
                             PreparedStatement pstatement = null; //izgut produktus un daudzumus cik sodien apesti
                             PreparedStatement pstatement1 = null; //izgut info par produktiem
@@ -57,14 +60,11 @@
                             else d=""+c.get(Calendar.DAY_OF_MONTH);
                             today=c.get(Calendar.YEAR)+"-"+m+"-"+d;
                             
-                            String queryString = "SELECT idProdukts, Daudzums FROM apests WHERE idLietotajs="+lietotajs.getId()+" AND Datums = "+today;
+                            //izdabut visus produktu daudzumus un id konkretam lietotajam sodien no apests tabulas
+                            String queryString = "SELECT idProdukts, Daudzums FROM apests WHERE idLietotajs="+lietotajs1.getId()+" AND Datums = "+today;
                             pstatement = connection.prepareStatement(queryString);
                             ResultSet rs1 = pstatement.executeQuery();
-                            
-                            ArrayList <Produkts> produkti = new ArrayList<Produkts>();
-                            ArrayList <String> idProduktiem = new ArrayList<String>();
-                            ArrayList <String> daudzumi = new ArrayList<String>();
-                            
+                                                      
                             while(rs1.next()){
                                 String id = rs1.getString("idProdukts");
                                 String daudz = rs1.getString("Daudzums");
@@ -73,6 +73,7 @@
                             }
                             
                             for(int i=0; i<idProduktiem.size(); i++){
+                                //saliek visus produktus listaa
                                 String queryString1 = "SELECT * FROM produkts WHERE idProdukts="+idProduktiem.get(i);
                                 pstatement1 = connection.prepareStatement(queryString1);
                                 ResultSet rs2 = pstatement1.executeQuery();
@@ -80,6 +81,7 @@
                                     String nos = rs2.getString("Nosaukums");
                                     String mer = rs2.getString("Mervieniba");
                                     String kcal = rs2.getString("kCal");
+                                    sakumaKcal.add(kcal);
                                     String tauki = rs2.getString("Tauki");
                                     String ogl = rs2.getStrng("OglHidr");
                                     String ol = rs2.getString("OlBalt");
@@ -119,6 +121,7 @@
                                         ski1 = daudzum * ski1;
                                         cuk1 = daudzum * cuk1;
                                     }
+                                    //uztaisa produktu un ieliek listaa
                                     Produkts p = new Produkts(idProduktiem.get(i), nos, mer, kcal1+"", tauki1+"", ogl1+"", ol1+"", sal1+"", tran1+"", ski1+"", cuk1+"");
                                     produkti.add(p);
                                 }
@@ -129,39 +132,35 @@
                             
                         }
                         for(int i = 1; i <= produkti.size(); i++){
+                            //visus produktus ieliek tabulaa
+                            String d = daudzumi.get(i);
+                            String sakKCal = sakumaKcal.get(i);
+                            String nos2 = produkti.get(i).getNosaukums();
+                            String mer2 = produkti.get(i).getMervieniba();
+                            String kcal2 = produkti.get(i).getkCal());
+                            String tauki2 = produkti.get(i).getTauki();
+                            String ogl2 = produkti.get(i).getOglHidr();
+                            String ol2 = produkti.get(i).getOlBalt();
+                            String sal2 = produkti.get(i).getSals();
+                            String tran2 = produkti.get(i).getTranSk();
+                            String ski2 = produkti.get(i).getSkiedrViel();
+                            String cuk2 = produkti.get(i).getCukurs();
+                            
                             document.getElementById("myTable").insertRow(i).innerHTML = '\
-                                    <td align="center">Lietotāja ID :</td>\n\
-                                    <td align="center">ProdID:</td>\n\
-                                    <td align="center">\n\
-                    <%
-                        String daudzums = request.getParameter("cikDaudz");
-                    %><%=daudzums%></td>\n\
-                <td align="center">Date:</td>\n\
-                <td align="center">700</td>\n\
-                <td align="center">77.7 g</td>\n\
-                <td align="center">7.8 g</td>\n\
-                <td align="center">12.0 g</td>\n\
-                <td align="center">15.3 g</td>\n\
-                <td align="center">3.1 g</td>\n\
-                <td align="center">0.0 g</td>\n\
-                <td align="center">4.8 g</td>';
+                                    <td align="center"><%=nos2%></td>\n\
+                                    <td align="center"><%=mer2%></td>\n\
+                                    <td align="center"><%=sakKCal%></td>\n\
+                                    <td align="center"><%=d%></td>\n\
+                                    <td align="center"><%=kcal2%></td>\n\
+                                    <td align="center"><%=ogl2%></td>\n\
+                                    <td align="center"><%=cuk2%></td>\n\
+                                    <td align="center"><%=ol2%></td>\n\
+                                    <td align="center"><%=tauki2%></td>\n\
+                                    <td align="center"><%=tran2%></td>\n\
+                                    <td align="center"><%=sal2%></td>\n\
+                                    <td align="center"><%=ski2%></td>';
                         }
-                document.getElementById("myTable").insertRow(1).innerHTML = '\
-                <td align="center">Lietotāja ID :</td>\n\
-                <td align="center">ProdID:</td>\n\
-                <td align="center">\n\
-                    <%
-                        String daudzums = request.getParameter("cikDaudz");
-                    %><%=daudzums%></td>\n\
-                <td align="center">Date:</td>\n\
-                <td align="center">700</td>\n\
-                <td align="center">77.7 g</td>\n\
-                <td align="center">7.8 g</td>\n\
-                <td align="center">12.0 g</td>\n\
-                <td align="center">15.3 g</td>\n\
-                <td align="center">3.1 g</td>\n\
-                <td align="center">0.0 g</td>\n\
-                <td align="center">4.8 g</td>';
+                
             }
             
         </script>
