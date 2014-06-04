@@ -17,6 +17,7 @@
     <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
     <%!String user = "accenture_madara";%>
     <%!String psw = "85dN17hk1yUEY:x";%>
+    <%Produkts produkts = (Produkts)request.getSession().getAttribute("produkts");%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
@@ -128,7 +129,7 @@
                     </div>
                 <div class="main">
                     <form name="input" method="get">
-                        <input type="text" name="prodName" style="width: 100px"> * 
+                        <input type="text" name="prodName" style="width: 100px" value="<%=produkts.getNosaukums()%>"> * 
                         <br></br>
                         <select name="mervieniba" style="width: 103px">
                             <option value="mL">ml</option>
@@ -136,23 +137,104 @@
                             <option value="gab">piece</option>
                         </select> *
                         <br></br>
-                        <input type="text" name="kcal" style="width: 100px"> *
+                        <input type="text" name="kcal" style="width: 100px" value="<%=produkts.getkCal()%>"> *
                         <br></br>
-                        <input type="text" name="fat" style="width: 100px">
+                        <input type="text" name="fat" style="width: 100px" value="<%=produkts.getTauki()%>">
                         <br></br>
-                        <input type="text" name="oglHidr" style="width: 100px"> 
+                        <input type="text" name="oglHidr" style="width: 100px" value="<%=produkts.getOglHidr()%>"> 
                         <br></br>
-                        <input type="text" name="olbalt" style="width: 100px">
+                        <input type="text" name="olbalt" style="width: 100px" value="<%=produkts.getOlBalt()%>">
                         <br></br>
-                        <input type="text" name="sals" style="width: 100px"> 
+                        <input type="text" name="sals" style="width: 100px" value=""<%=produkts.getSals()%>> 
                         <br></br>
-                        <input type="text" name="transk" style="width: 100px"> 
+                        <input type="text" name="transk" style="width: 100px" value="<%=produkts.getTranSk()%>"> 
                         <br></br>
-                        <input type="text" name="skiedrv" style="width: 100px"> 
+                        <input type="text" name="skiedrv" style="width: 100px" value="<%=produkts.getSkiedrViel()%>"> 
                         <br></br>
-                        <input type="text" name="cukurs" style="width: 100px"> 
+                        <input type="text" name="cukurs" style="width: 100px" value="<%=produkts.getCukurs()%>"> 
                         <br></br><br></br>
                         <input type="submit" value="Add/Pievienot">
                     </form>
+                        <%
+                        String Nosaukums = request.getParameter("prodName");
+                        String Mervieniba = request.getParameter("mervieniba");
+                        String kCal = request.getParameter("kcal");
+                        String Tauki = request.getParameter("fat");
+                        String OglHidr = request.getParameter("oglHidr");
+                        String OlBalt = request.getParameter("olbalt");
+                        String Sals = request.getParameter("sals");
+                        String TranSk = request.getParameter("transk");
+                        String SkiedrViel = request.getParameter("skiedrv");
+                        String Cukurs = request.getParameter("cukurs");
+                        String id = produkts.getId();
+                        
+                        Connection connection = null;
+                        PreparedStatement pstatement = null;    //ievieto produkts
+                        Class.forName(driverName);
+                        int updateQuery = 0;
+                        String queryString ="";
+                        if(Nosaukums!=null && Mervieniba!=null && kCal!=null){
+                            if(Nosaukums!="" && Mervieniba!="" && kCal!="") {                              
+                                try {
+                                    connection = DriverManager.getConnection(url, user, psw);
+                                    
+                                    Produkts produkts1 = new Produkts(Nosaukums, Mervieniba, kCal);
+                                    if(Tauki!=null || OglHidr!=null || OlBalt!=null || Sals!=null || TranSk!=null || SkiedrViel!=null || Cukurs!=null){
+                                        if(Tauki!="" || OglHidr!="" || OlBalt!="" || Sals!="" || TranSk!="" || SkiedrViel!="" || Cukurs!=""){
+                                            if(Tauki!=null && Tauki!=""){
+                                                produkts1.setTauki(Tauki);
+                                            }
+                                            if(OglHidr!=null && OglHidr!=""){
+                                                produkts1.setOglHidr(OglHidr);
+                                            }
+                                            if(OlBalt!=null && OlBalt!=""){
+                                                produkts1.setOlBalt(OlBalt);
+                                            }
+                                            if(Sals!=null && Sals!=""){
+                                                produkts1.setSals(Sals);
+                                            }
+                                            if(TranSk!=null && TranSk!=""){
+                                                produkts1.setTranSk(TranSk);
+                                            }
+                                            if(SkiedrViel!=null && SkiedrViel!=""){
+                                                produkts1.setSkiedrViel(SkiedrViel);
+                                            }
+                                            if(Cukurs!=null && Cukurs!=""){
+                                                produkts1.setCukurs(Cukurs);
+                                            }
+                                        }
+                                    }
+                                    queryString = "UPDATE produkts SET Nosaukums = "+ produkts1.getNosaukums()+", Mervieniba = "+ produkts1.getMervieniba()+
+                                            ", kCal = "+ produkts1.getkCal() +", Tauki = "+ produkts1.getTauki()+", OglHidr = "+ produkts1.getOglHidr()+ 
+                                            ", OlBalt = "+ produkts1.getOlBalt() +", Sals = "+produkts1.getSals() +", TranSk = "+ produkts1.getTranSk() +
+                                            ", SkiedrViel = "+ produkts1.getSkiedrViel() + ", Cukurs = "+ produkts1.getCukurs() +" WHERE idProdukts = "+id;
+                                    
+                                    pstatement = connection.prepareStatement(queryString);
+                                    updateQuery = pstatement.executeUpdate();
+                                    
+                                    connection.close();
+                                    response.sendRedirect("index.htm");
+                                }
+                                catch(SQLException sqe){
+                                    out.println(sqe);
+                                    %>
+                                    
+                                    <p style="color:red">Ievadītas nepareizas vērtības!</p>
+                                    
+                                    <%
+                                }
+                            }
+                        }
+                        else{
+                        %>
+                                    
+                                    <p style="color:red">Nav ievadīti obligātie lauki!</p>
+                                    
+                        <%
+                        }
+                    %>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
