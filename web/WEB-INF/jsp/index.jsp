@@ -518,6 +518,8 @@ function UzzimetTabulu()
 }
 }
 </script>
+                
+ 
                 </div>
             </div>
             
@@ -771,6 +773,122 @@ function UzzimetTabulu()
             }
             
         </script>
+               
                         
+                                                            <%
+                        ArrayList <Produkts> produkti = new ArrayList<Produkts>();
+                            ArrayList <String> idProduktiem = new ArrayList<String>();
+                            ArrayList <String> daudzumi = new ArrayList<String>();
+                            ArrayList <String> sakumaKcal = new ArrayList<String>();
+                    try{
+                            Lietotajs lietotajs1 = (Lietotajs)request.getSession().getAttribute("lietotajs");
+                            Connection connection = null;
+                            PreparedStatement pstatement = null; //izgut produktus un daudzumus cik sodien apesti
+                            PreparedStatement pstatement1 = null; //izgut info par produktiem
+                            Class.forName(driverName);
+                            connection = DriverManager.getConnection(url, user, psw);
+                            String today="";
+                            
+                            Calendar c = Calendar.getInstance();
+                            String m="",d="";
+                            if((c.get(Calendar.MONTH)+1)<=9)
+                            m="0"+(c.get(Calendar.MONTH)+1);
+                            else m=""+c.get(Calendar.MONTH)+1;
+                            if(c.get(Calendar.DAY_OF_MONTH)<=9)
+                            d="0"+c.get(Calendar.DAY_OF_MONTH);
+                            else d=""+c.get(Calendar.DAY_OF_MONTH);
+                            today=c.get(Calendar.YEAR)+"-"+m+"-"+d;
+                            
+                            //izdabut visus produktu daudzumus un id konkretam lietotajam sodien no apests tabulas
+                            String queryString = "SELECT idProdukts, Daudzums FROM apests WHERE idLietotajs="+lietotajs1.getId()+" AND Datums = '"+today+"'";
+                            pstatement = connection.prepareStatement(queryString);
+                            ResultSet rs1 = pstatement.executeQuery();
+                                                      
+                            while(rs1.next()){
+                                String id1 = rs1.getString("idProdukts");
+                                String daudz = rs1.getString("Daudzums");
+                                idProduktiem.add(id1);
+                                daudzumi.add(daudz);
+                            }
+                            
+                            for(int i=0; i<idProduktiem.size(); i++){
+                                //saliek visus produktus listaa
+                                String queryString1 = "SELECT * FROM produkts WHERE idProdukts="+idProduktiem.get(i);
+                                pstatement1 = connection.prepareStatement(queryString1);
+                                ResultSet rs2 = pstatement1.executeQuery();
+                                while(rs1.next()){
+                                    String nos = rs2.getString("Nosaukums");
+                                    String mer = rs2.getString("Mervieniba");
+                                    String kcal = rs2.getString("kCal");
+                                    sakumaKcal.add(kcal);
+                                    String tauki = rs2.getString("Tauki");
+                                    String ogl = rs2.getString("OglHidr");
+                                    String ol = rs2.getString("OlBalt");
+                                    String sal = rs2.getString("Sals");
+                                    String tran = rs2.getString("TranSk");
+                                    String ski = rs2.getString("SkiedrViel");
+                                    String cuk = rs2.getString("Cukurs");
+                                    
+                                    float kcal1 = Float.parseFloat(kcal);
+                                    float tauki1 = Float.parseFloat(tauki);
+                                    float ogl1 = Float.parseFloat(ogl);
+                                    float ol1 = Float.parseFloat(ol);
+                                    float sal1 = Float.parseFloat(sal);
+                                    float tran1 = Float.parseFloat(tran);
+                                    float ski1 = Float.parseFloat(ski);
+                                    float cuk1 = Float.parseFloat(cuk);
+                                    
+                                    int daudzum = Integer.parseInt(daudzumi.get(i));
+                                    
+                                    if(mer.equals("g") || mer.equals("mL")){
+                                        kcal1 = daudzum * kcal1 / 100;
+                                        tauki1 = daudzum * tauki1 / 100;
+                                        ogl1 = daudzum * ogl1 / 100;
+                                        ol1 = daudzum * ol1 / 100;
+                                        sal1 = daudzum * sal1 / 100;
+                                        tran1 = daudzum * tran1 / 100;
+                                        ski1 = daudzum * ski1 / 100;
+                                        cuk1 = daudzum * cuk1 / 100;
+                                    }
+                                    else{
+                                        kcal1 = daudzum * kcal1;
+                                        tauki1 = daudzum * tauki1;
+                                        ogl1 = daudzum * ogl1;
+                                        ol1 = daudzum * ol1;
+                                        sal1 = daudzum * sal1;
+                                        tran1 = daudzum * tran1;
+                                        ski1 = daudzum * ski1;
+                                        cuk1 = daudzum * cuk1;
+                                    }
+                                    //uztaisa produktu un ieliek listaa
+                                    Produkts p = new Produkts(idProduktiem.get(i), nos, mer, kcal1+"", tauki1+"", ogl1+"", ol1+"", sal1+"", tran1+"", ski1+"", cuk1+"");
+                                    produkti.add(p);
+                                }
+                            }
+                            
+                        }
+                        catch(SQLException sqe){
+                            
+                        }
+                        for(int i = 1; i <= produkti.size(); i++){
+                            //visus produktus ieliek tabulaa
+                            String d = daudzumi.get(i);
+                            String sakKCal = sakumaKcal.get(i);
+                            String nos2 = produkti.get(i).getNosaukums();
+                            String mer2 = produkti.get(i).getMervieniba();
+                            String kcal2 = produkti.get(i).getkCal();
+                            String tauki2 = produkti.get(i).getTauki();
+                            String ogl2 = produkti.get(i).getOglHidr();
+                            String ol2 = produkti.get(i).getOlBalt();
+                            String sal2 = produkti.get(i).getSals();
+                            String tran2 = produkti.get(i).getTranSk();
+                            String ski2 = produkti.get(i).getSkiedrViel();
+                            String cuk2 = produkti.get(i).getCukurs();
+                            
+                            
+    
+        %><p>Produkts<%=nos2%>, mervieniba <%=mer2%>, kCal <%=sakKCal%>, daudzums <%=d%>, kcal <%=kcal2%>, OglHidr <%=ogl2%>, Cukurs <%=cuk2%>, Olbalt <%=ol2%>, Tauki <%=tauki2%>, Transk <%=tran2%>, Sals <%=sal2%>, SkiedrV <%=ski2%></p><%
+    }
+                        %>
    </body>
 </html>
