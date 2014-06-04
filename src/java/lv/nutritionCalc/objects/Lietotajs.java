@@ -125,8 +125,8 @@ public class Lietotajs {
     public String getBMI(){
         double heightMeters = (Double.parseDouble(height))/100;
         double bmi = Double.parseDouble(this.weight)/(Math.pow(heightMeters, 2));
-        long bmi2 = Math.round(bmi);
-        return ""+bmi2;
+        String bmi2 = ""+bmi;
+        return bmi2.substring(0, 4);
     }
     
     public String getAge(){
