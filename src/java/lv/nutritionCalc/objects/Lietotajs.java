@@ -6,6 +6,8 @@
 
 package lv.nutritionCalc.objects;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Katrina
@@ -25,11 +27,19 @@ public class Lietotajs {
         this.username=uname;
         this.password=pass;
         this.name=name;
-        this.surname="NULL";
-        this.dateOfBirth="NULL";
-        this.gender="NULL";
-        this.height="NULL";
-        this.weight="NULL";     
+        this.surname="";
+        Calendar c = Calendar.getInstance();
+        String m="",d="";
+        if((c.get(Calendar.MONTH)+1)<=9)
+            m="0"+(c.get(Calendar.MONTH)+1);
+        else m=""+c.get(Calendar.MONTH)+1;
+        if(c.get(Calendar.DAY_OF_MONTH)<=9)
+            d="0"+c.get(Calendar.DAY_OF_MONTH);
+        else d=""+c.get(Calendar.DAY_OF_MONTH);
+        this.dateOfBirth=c.get(Calendar.YEAR)+"-"+m+"-"+d;
+        this.gender="N";
+        this.height="0";
+        this.weight="0.0";     
     }
     
     public Lietotajs(String id, String uname, String pass, String name, String surname, String dateOfBirth, String gender, String height, String weight){

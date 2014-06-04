@@ -4,6 +4,7 @@
     Author     : Katrina
 --%>
 
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="lv.nutritionCalc.objects.Lietotajs"%>
@@ -148,60 +149,58 @@
                     Nutrition and Diet calc
                 </div>
             </div>
-            <div class="body">
-                <div class="main">
-                    <form name="input" method="get">
-                        <div class="mainTitle">
-                            Edit information
-                        </div>
-                        <div class="column1">
-                            Password: <br>
-                            Password again: <br>
-                            Name: <br>
-                            Surname: <br>
-                            Height: <br>
-                            Weight: <br>
+            <div class="main">
+                <form name="input" method="get">
+                    <div class="mainTitle">
+                        Edit information
+                    </div>
+                    <div class="column1">
+                        Password: <br>
+                        Password again: <br>
+                        Name: <br>
+                        Surname: <br>
+                        Height: <br>
+                        Weight:(77.7) <br>
 
-                        </div>
-                        <div class="column2">
-                            <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>
-                            <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>
-                            <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>
-                            <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
-                            <select name="height" style="width: 153px; height: 22px">
-                                <%for(int i=50; i<=250; i++){
-                                    int height = i;
-                                    if(!l.getHeight().equals("NULL")){
-                                        if(height==Integer.parseInt(l.getHeight()))
-                                            %><option value="<%=height %>" selected><%=height %></option><%
-                                        if(height!=Integer.parseInt(l.getHeight()))
-                                            %><option value="<%=height %>"><%=height %></option><%
-                                    }
-                                    else{
+                    </div>
+                    <div class="column2">
+                        <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>
+                        <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>
+                        <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>
+                        <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
+                        <select name="height" style="width: 153px; height: 22px">
+                            <%for(int i=50; i<=250; i++){
+                                int height = i;
+                                if(!l.getHeight().equals("NULL")){
+                                    if(height==Integer.parseInt(l.getHeight()))
+                                        %><option value="<%=height %>" selected><%=height %></option><%
+                                    if(height!=Integer.parseInt(l.getHeight()))
                                         %><option value="<%=height %>"><%=height %></option><%
-                                    }
                                 }
-                                if(!l.getHeight().equals("NULL")){%>
-                                    <option value=""></option>;
-                                <%}else{
-                                    %><option value="" selected></option>;<%   
-                                }%>
-                            </select>
-                            <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
+                                else{
+                                    %><option value="<%=height %>"><%=height %></option><%
+                                }
+                            }
+                            if(!l.getHeight().equals("NULL")){%>
+                                <option value=""></option>
+                            <%}else{
+                                %><option value="" selected></option><%   
+                            }%>
+                        </select>
+                        <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Edit information" style="width:310px; height:30px; font-size: 16px"/>
+                    </div>
+                    <div class="column3"> 
+                        <div class="label4">
+                            <label style="color: red; display: none" id="l4">Passwords does not match!</label>
                         </div>
-                        <div class="button">
-                            <input type="submit" value="Edit information" style="width:310px; height:30px; font-size: 16px"/>
+                        <div class="label3">
+                            <label style="color: red; display: none" id="l3">Invalid weight!</label>
                         </div>
-                        <div class="column3"> 
-                            <div class="label4">
-                                <label style="color: red; display: none" id="l4">Passwords does not match!</label>
-                            </div>
-                            <div class="label3">
-                                <label style="color: red; display: none" id="l3">Invalid weight!</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
 <%
@@ -240,13 +239,19 @@
                         if(weight.equals("NULL") || weight==""){
                             weight="NULL";
                         }
+                        try{
                         String queryString = "UPDATE lietotajs SET Parole = "+ pass+", Vards =" +name+", Uzvards="+surname
                                             +", Garums="+height+", Svars="+weight+" WHERE idLietotajs="+l.getId();
+                        out.println(queryString);
                         pstatement = connection.prepareStatement(queryString);
-                        pstatement.executeUpdate();
+                        int i = pstatement.executeUpdate();
 
                         connection.close();
-                        response.sendRedirect("index.htm");
+                        //response.sendRedirect("index.htm");
+                        }
+                        catch(SQLException e){
+                            out.println(e);
+                        }
                     }
                 }
             }
