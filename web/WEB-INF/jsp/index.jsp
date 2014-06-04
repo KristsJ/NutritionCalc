@@ -32,9 +32,120 @@
         
         
         <script type="text/javascript">
-            
+            function ieliktDatubaze(){
+                
+            }
             function displayResult()
             {
+                    try{
+                        //String nosProdukts = request.getParameter("myProductsToEat");
+                        Lietotajs lietotajs = (Lietotajs)request.getSession().getAttribute("lietotajs");
+                            Connection connection = null;
+                            PreparedStatement pstatement = null; //izgut produktus un daudzumus cik sodien apesti
+                            PreparedStatement pstatement1 = null; //izgut info par produktiem
+                            Class.forName(driverName);
+                            connection = DriverManager.getConnection(url, user, psw);
+                            String today="";
+                            
+                            Calendar c = Calendar.getInstance();
+                            String m="",d="";
+                            if((c.get(Calendar.MONTH)+1)<=9)
+                            m="0"+(c.get(Calendar.MONTH)+1);
+                            else m=""+c.get(Calendar.MONTH)+1;
+                            if(c.get(Calendar.DAY_OF_MONTH)<=9)
+                            d="0"+c.get(Calendar.DAY_OF_MONTH);
+                            else d=""+c.get(Calendar.DAY_OF_MONTH);
+                            today=c.get(Calendar.YEAR)+"-"+m+"-"+d;
+                            
+                            String queryString = "SELECT idProdukts, Daudzums FROM apests WHERE idLietotajs="+lietotajs.getId()+" AND Datums = "+today;
+                            pstatement = connection.prepareStatement(queryString);
+                            ResultSet rs1 = pstatement.executeQuery();
+                            
+                            ArrayList <Produkts> produkti = new ArrayList<Produkts>();
+                            ArrayList <String> idProduktiem = new ArrayList<String>();
+                            ArrayList <String> daudzumi = new ArrayList<String>();
+                            
+                            while(rs1.next()){
+                                String id = rs1.getString("idProdukts");
+                                String daudz = rs1.getString("Daudzums");
+                                idProduktiem.add(id);
+                                daudzumi.add(daudz);
+                            }
+                            
+                            for(int i=0; i<idProduktiem.size(); i++){
+                                String queryString1 = "SELECT * FROM produkts WHERE idProdukts="+idProduktiem.get(i);
+                                pstatement1 = connection.prepareStatement(queryString1);
+                                ResultSet rs2 = pstatement1.executeQuery();
+                                while(rs1.next()){
+                                    String nos = rs2.getString("Nosaukums");
+                                    String mer = rs2.getString("Mervieniba");
+                                    String kcal = rs2.getString("kCal");
+                                    String tauki = rs2.getString("Tauki");
+                                    String ogl = rs2.getStrng("OglHidr");
+                                    String ol = rs2.getString("OlBalt");
+                                    String sal = rs2.getString("Sals");
+                                    String tran = rs2.getString("TranSk");
+                                    String ski = rs2.getString("SkiedrViel");
+                                    String cuk = rs2.getString("Cukurs");
+                                    
+                                    float kcal1 = Float.parseFloat(kcal);
+                                    float tauki1 = Float.parseFloat(tauki);
+                                    float ogl1 = Float.parseFloat(ogl);
+                                    float ol1 = Float.parseFloat(ol);
+                                    float sal1 = Float.parseFloat(sal);
+                                    float tran1 = Float.parseFloat(tran);
+                                    float ski1 = Float.parseFloat(ski);
+                                    float cuk1 = Float.parseFloat(cuk);
+                                    
+                                    int daudzum = Int.parseInt(daudzumi.get(i));
+                                    
+                                    if(mer.equals("g") || mer.equals("mL")){
+                                        kcal1 = daudzum * kcal1 / 100;
+                                        tauki1 = daudzum * tauki1 / 100;
+                                        ogl1 = daudzum * ogl1 / 100;
+                                        ol1 = daudzum * ol1 / 100;
+                                        sal1 = daudzum * sal1 / 100;
+                                        tran1 = daudzum * tran1 / 100;
+                                        ski1 = daudzum * ski1 / 100;
+                                        cuk1 = daudzum * cuk1 / 100;
+                                    }
+                                    else{
+                                        kcal1 = daudzum * kcal1;
+                                        tauki1 = daudzum * tauki1;
+                                        ogl1 = daudzum * ogl1;
+                                        ol1 = daudzum * ol1;
+                                        sal1 = daudzum * sal1;
+                                        tran1 = daudzum * tran1;
+                                        ski1 = daudzum * ski1;
+                                        cuk1 = daudzum * cuk1;
+                                    }
+                                    Produkts p = new Produkts(idProduktiem.get(i), nos, mer, kcal1+"", tauki1+"", ogl1+"", ol1+"", sal1+"", tran1+"", ski1+"", cuk1+"");
+                                    produkti.add(p);
+                                }
+                            }
+                            
+                        }
+                        catch(SQLException sqe){
+                            
+                        }
+                        for(int i = 1; i <= produkti.size(); i++){
+                            document.getElementById("myTable").insertRow(i).innerHTML = '\
+                                    <td align="center">Lietotāja ID :</td>\n\
+                                    <td align="center">ProdID:</td>\n\
+                                    <td align="center">\n\
+                    <%
+                        String daudzums = request.getParameter("cikDaudz");
+                    %><%=daudzums%></td>\n\
+                <td align="center">Date:</td>\n\
+                <td align="center">700</td>\n\
+                <td align="center">77.7 g</td>\n\
+                <td align="center">7.8 g</td>\n\
+                <td align="center">12.0 g</td>\n\
+                <td align="center">15.3 g</td>\n\
+                <td align="center">3.1 g</td>\n\
+                <td align="center">0.0 g</td>\n\
+                <td align="center">4.8 g</td>';
+                        }
                 document.getElementById("myTable").insertRow(1).innerHTML = '\
                 <td align="center">Lietotāja ID :</td>\n\
                 <td align="center">ProdID:</td>\n\
