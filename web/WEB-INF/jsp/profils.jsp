@@ -68,7 +68,7 @@
                 position: relative;
                 width: 540px;
                 height: 50px;
-                left: 350px;
+                left: 270px;
                 top: 0px;
                 z-index: 2;
                 font-size: 36px;
@@ -77,9 +77,9 @@
             
             .column1{
                 position: relative;
-                width: 155px;
+                width: 235px;
                 height: 216px;
-                left:350px;
+                left:270px;
                 top:0px;
                 z-index:2;
                 font-size: 15px;
@@ -98,9 +98,9 @@
             }
             .button{
                 position: relative;
-                width:315px; 
+                width:395px; 
                 height: 30px; 
-                left:350px;
+                left:270px;
                 top:-215px;
                 z-index:2;
             }
@@ -121,14 +121,6 @@
                 height: 36px;
                 left: 0px;
                 top: 0px;
-                z-index:3;
-            }
-            .nextPageBtn{
-                position: relative;
-                width: 320px;
-                height: 40px;
-                left: 350px;
-                top: -660px;
                 z-index:3;
             }
             .label3{
@@ -160,18 +152,18 @@
                         Name: <br>
                         Surname: <br>
                         Height: <br>
-                        Weight:(77.7) <br>
+                        Weight (round numbers only): <br>
 
                     </div>
                     <div class="column2">
-                        <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>
-                        <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>
-                        <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>
-                        <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
+                        <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>*
+                        <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>*
+                        <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>*
+                        <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getBMI()%>">
                         <select name="height" style="width: 153px; height: 22px">
                             <%for(int i=50; i<=250; i++){
                                 int height = i;
-                                if(!l.getHeight().equals("NULL")){
+                                if(!l.getHeight().equals("0")){
                                     if(height==Integer.parseInt(l.getHeight()))
                                         %><option value="<%=height %>" selected><%=height %></option><%
                                     if(height!=Integer.parseInt(l.getHeight()))
@@ -181,16 +173,34 @@
                                     %><option value="<%=height %>"><%=height %></option><%
                                 }
                             }
-                            if(!l.getHeight().equals("NULL")){%>
+                            if(!l.getHeight().equals("0")){%>
                                 <option value=""></option>
                             <%}else{
                                 %><option value="" selected></option><%   
                             }%>
                         </select>
-                        <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
+                        <select name="weight" style="width: 153px; height: 22px">
+                            <%for(int i=0; i<=200; i++){
+                                int weight = i;
+                                if(!l.getWeight().equals("0")){
+                                    if(weight==Integer.parseInt(l.getWeight()))
+                                        %><option value="<%=weight %>" ><%=weight %></option><%
+                                    if(weight!=Integer.parseInt(l.getWeight()))
+                                        %><option value="<%=weight %>"><%=weight %></option><%
+                                }
+                                else{
+                                    %><option value="<%=weight %>"><%=weight %></option><%
+                                }
+                            }
+                            if(!l.getWeight().equals("0")){%>
+                                <option value=""></option>
+                            <%}else{
+                                %><option value=""></option><%   
+                            }%>
+                        </select>
                     </div>
                     <div class="button">
-                        <input type="submit" value="Edit information" style="width:310px; height:30px; font-size: 16px"/>
+                        <input type="submit" value="Edit information" style="width:390px; height:30px; font-size: 16px"/>
                     </div>
                     <div class="column3"> 
                         <div class="label4">
@@ -209,7 +219,7 @@
     String name = request.getParameter("nameBox");
     String surname = request.getParameter("surnameBox");
     String height = request.getParameter("height");
-    String weight = request.getParameter("weightBox");
+    String weight = request.getParameter("weight");
     if(pass2!=null&&pass!=null&&name!=null){
         if(pass2!="" && pass!="" && name!=""){
             Connection connection = null;
@@ -224,35 +234,29 @@
                     weightError=0;
                 }
                 catch(NumberFormatException e){
+                    out.println(e);
                     weightError++;
                 }
             }
             if(weightError==0&&passError==0){
-                if(surname!=null || height!=null || weight!=null){
-                    if(surname!="" || height!="" || weight!=""){
-                        if(surname.equals("NULL") || surname==""){
-                            surname="NULL";
-                        }
-                        if(height==null || height==""){
-                            height="NULL";
-                        }
-                        if(weight.equals("NULL") || weight==""){
-                            weight="NULL";
-                        }
-                        try{
-                        String queryString = "UPDATE lietotajs SET Parole = "+ pass+", Vards =" +name+", Uzvards="+surname
-                                            +", Garums="+height+", Svars="+weight+" WHERE idLietotajs="+l.getId();
-                        out.println(queryString);
-                        pstatement = connection.prepareStatement(queryString);
-                        int i = pstatement.executeUpdate();
+                if(height==null || height==""){
+                    height="0";
+                }
+                if(weight.equals("NULL") || weight==""){
+                    weight="0";
+                }
+                try{
+                String queryString = "UPDATE lietotajs SET Parole = "+ pass+", Vards =" +name+", Uzvards="+surname
+                                    +", Garums="+height+", Svars="+weight+" WHERE idLietotajs="+l.getId();
+                out.println(queryString);
+                pstatement = connection.prepareStatement(queryString);
+                int i = pstatement.executeUpdate();
 
-                        connection.close();
-                        //response.sendRedirect("index.htm");
-                        }
-                        catch(SQLException e){
-                            out.println(e);
-                        }
-                    }
+                connection.close();
+                response.sendRedirect("index.htm");
+                }
+                catch(SQLException e){
+                    out.println(e);
                 }
             }
             else{
