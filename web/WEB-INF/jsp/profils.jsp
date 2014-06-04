@@ -175,16 +175,16 @@
                             }
                             
                             if(!l.getHeight().equals("0")){%>
-                                <option value=""></option>
+                                <option value="0">0</option>
                             <%}else{
-                                %><option value="" selected></option><%   
+                                %><option value="0" selected>0</option><%   
                             }%>
                         </select>
                         <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
                     </div>
                     <div class="button">
                         <input type="submit" value="Edit information" style="width:390px; height:30px; font-size: 16px"/>
-                        <label style="display: none" id="l1">Error</label>
+                        <input type="text" style="display: none" name="l1" value="<%=l.getId()%>">
                     </div>
                     <div class="column3"> 
                         <div class="label4">
