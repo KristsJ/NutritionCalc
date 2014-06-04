@@ -55,9 +55,6 @@ public class Produkts {
     public String getId(){
         return this.Id;
     }
-    public void setId(String Id){
-        this.Id=Id;
-    }
     public String getNosaukums(){
         return this.Nosaukums;
     }
@@ -74,48 +71,96 @@ public class Produkts {
         return this.kCal;
     }
     public void setkCal(String kCal){
-        this.kCal=kCal;
+        try{
+            float number = Float.parseFloat(kCal);
+            this.kCal=kCal;
+        }
+        catch(NumberFormatException e){
+            this.kCal = "0.0";
+        }  
     }
     public String getTauki(){
         return this.Tauki;
     }
     public void setTauki(String Tauki){
-        this.Tauki=Tauki;
+        try{
+            float number = Float.parseFloat(Tauki);
+            this.Tauki=Tauki;
+        }
+        catch(NumberFormatException e){
+            this.Tauki = "0.0";
+        }  
     }
     public String getOglHidr(){
         return this.OglHidr;
     }
     public void setOglHidr(String OglHidr){
-        this.OglHidr=OglHidr;
+        try{
+            float number = Float.parseFloat(OglHidr);
+            this.OglHidr=OglHidr;
+        }
+        catch(NumberFormatException e){
+            this.OglHidr = "0.0";
+        } 
     }
     public String getOlBalt(){
         return this.OlBalt;
     }
     public void setOlBalt(String OlBalt){
-        this.OlBalt=OlBalt;
+        try{
+            float number = Float.parseFloat(OlBalt);
+            this.OlBalt=OlBalt;
+        }
+        catch(NumberFormatException e){
+            this.OlBalt = "0.0";
+        } 
     }
     public String getSals(){
         return this.Sals;
     }
     public void setSals(String Sals){
-        this.Sals=Sals;
+        try{
+            float number = Float.parseFloat(Sals);
+            this.Sals=Sals;
+        }
+        catch(NumberFormatException e){
+            this.Sals = "0.0";
+        }
     }
     public String getTranSk(){
         return this.TranSk;
     }
     public void setTranSk(String TranSk){
-        this.TranSk=TranSk;
+        try{
+            float number = Float.parseFloat(TranSk);
+            this.TranSk=TranSk;
+        }
+        catch(NumberFormatException e){
+            this.TranSk = "0.0";
+        }
     }
     public String getSkiedrViel(){
         return this.SkiedrViel;
     }
     public void setSkiedrViel(String SkiedrViel){
-        this.SkiedrViel=SkiedrViel;
+        try{
+            float number = Float.parseFloat(SkiedrViel);
+            this.SkiedrViel=SkiedrViel;
+        }
+        catch(NumberFormatException e){
+            this.SkiedrViel = "0.0";
+        } 
     }
     public String getCukurs(){
         return this.Cukurs;
     }
     public void setCukurs (String Cukurs){
-        this.Cukurs=Cukurs;
+        try{
+            float number = Float.parseFloat(Cukurs);
+            this.Cukurs=Cukurs;
+        }
+        catch(NumberFormatException e){
+            this.Cukurs = "0.0";
+        }   
     }
 }
