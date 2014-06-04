@@ -3,6 +3,7 @@
     Created on : 2014.3.6, 18:20:12
     Author     : Katrina
 --%>
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -73,7 +74,7 @@
             .column1{
                 position: relative;
                 width: 155px;
-                height: 334px;
+                height: 216px;
                 left:350px;
                 top:0px;
                 z-index:2;
@@ -84,9 +85,9 @@
             .column2{
                 position: relative;
                 width: 170px;
-                height: 334px;
+                height: 216px;
                 left:505px;
-                top:-334px;
+                top:-216px;
                 line-height: 36px;
                 z-index:2;
                 background-color: magenta;
@@ -96,17 +97,17 @@
                 width:315px; 
                 height: 30px; 
                 left:350px;
-                top:-335px;
+                top:-215px;
                 z-index:2;
             }
             .column3{
                 position: relative;
                 width: 170px;
                 left: 675px;
-                top:-698px;
+                top:-462px;
                 line-height: 36px;
                 z-index:2;
-                height: 334px;
+                height: 216px;
                 background-color: cyan;
             }
             
@@ -115,7 +116,7 @@
                 width: 170px;
                 height: 36px;
                 left: 0px;
-                top: 36px;
+                top: 0px;
                 z-index:3;
             }
             .nextPageBtn{
@@ -131,7 +132,7 @@
                 width: 170px;
                 height: 36px;
                 left: 0px;
-                top: 180px;
+                top: 144px;
                 z-index:3;
         </style>
         
@@ -161,33 +162,29 @@
                         </div>
                         <div class="column2">
                             <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>">
-                            <input type="password" style="width: 150px; height: 18px" name="passBox2">
-                            <input type="text" style="width: 150px; height: 18px" name="nameBox">
-                            <input type="text" style="width: 150px; height: 18px" name="surnameBox">
+                            <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>">
+                            <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>">
+                            <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
                             <select name="height" style="width: 153px; height: 22px">
-
                                 <%for(int i=50; i<=250; i++){
-                                    int height = i;%>
-                                    <option value="<%=height %>"><%=height %></option><%
+                                    int height = i;
+                                    if(!l.getHeight().equals("NULL")){
+                                        if(height==Integer.parseInt(l.getHeight()))
+                                            %><option value="<%=height %>" selected><%=height %></option><%
+                                        if(height!=Integer.parseInt(l.getHeight()))
+                                            %><option value="<%=height %>"><%=height %></option><%
+                                    }
+                                    else{
+                                        %><option value="<%=height %>"><%=height %></option><%
+                                    }
+                                }
+                                if(!l.getHeight().equals("NULL")){%>
+                                    <option value=""></option>;
+                                <%}else{
+                                    %><option value="" selected></option>;<%   
                                 }%>
-                                <option value=""></option>;
                             </select>
-                            <select name="weight1" style="width: 75px; height: 22px">
-
-                                <%for(int i=5; i<=200; i++){
-                                    int weight = i;%>
-                                    <option value="<%=weight %>"><%=weight %></option><%
-                                }%>
-                                <option value=""></option>;
-                            </select>
-                            <select name="weight2" style="width: 75px; height: 22px; top:-22px">
-
-                                <%for(int i=0; i<=9; i++){
-                                    int weight2 = i;%>
-                                    <option value="<%=weight2 %>"><%=weight2 %></option><%
-                                }%>
-                                <option value=""></option>;
-                            </select>
+                            <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
                         </div>
                         <div class="button">
                             <input type="submit" value="Edit information" style="width:310px; height:30px; font-size: 16px"/>
