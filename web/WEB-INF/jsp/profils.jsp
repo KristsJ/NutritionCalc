@@ -99,7 +99,7 @@
             .button{
                 position: relative;
                 width:395px; 
-                height: 30px; 
+                height: 60px; 
                 left:270px;
                 top:-215px;
                 z-index:2;
@@ -108,7 +108,7 @@
                 position: relative;
                 width: 170px;
                 left: 675px;
-                top:-462px;
+                top:-492px;
                 line-height: 36px;
                 z-index:2;
                 height: 216px;
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="main">
-                <form name="input" method="get">
+                <form name="input" method="get" action="../NutritionCalc/updateProfils.htm">
                     <div class="mainTitle">
                         Edit information
                     </div>
@@ -159,7 +159,7 @@
                         <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>*
                         <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>*
                         <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>*
-                        <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getBMI()%>">
+                        <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
                         <select name="height" style="width: 153px; height: 22px">
                             <%for(int i=50; i<=250; i++){
                                 int height = i;
@@ -173,34 +173,18 @@
                                     %><option value="<%=height %>"><%=height %></option><%
                                 }
                             }
+                            
                             if(!l.getHeight().equals("0")){%>
                                 <option value=""></option>
                             <%}else{
                                 %><option value="" selected></option><%   
                             }%>
                         </select>
-                        <select name="weight" style="width: 153px; height: 22px">
-                            <%for(int i=0; i<=200; i++){
-                                int weight = i;
-                                if(!l.getWeight().equals("0")){
-                                    if(weight==Integer.parseInt(l.getWeight()))
-                                        %><option value="<%=weight %>" ><%=weight %></option><%
-                                    if(weight!=Integer.parseInt(l.getWeight()))
-                                        %><option value="<%=weight %>"><%=weight %></option><%
-                                }
-                                else{
-                                    %><option value="<%=weight %>"><%=weight %></option><%
-                                }
-                            }
-                            if(!l.getWeight().equals("0")){%>
-                                <option value=""></option>
-                            <%}else{
-                                %><option value=""></option><%   
-                            }%>
-                        </select>
+                        <input type="text" style="width: 150px; height: 18px" name="weightBox" value="<%=l.getWeight()%>">
                     </div>
                     <div class="button">
                         <input type="submit" value="Edit information" style="width:390px; height:30px; font-size: 16px"/>
+                        <label style="display: none" id="l1">Error</label>
                     </div>
                     <div class="column3"> 
                         <div class="label4">
@@ -213,69 +197,5 @@
                 </form>
             </div>
         </div>
-<%
-    String pass = request.getParameter("passBox");
-    String pass2 = request.getParameter("passBox2");
-    String name = request.getParameter("nameBox");
-    String surname = request.getParameter("surnameBox");
-    String height = request.getParameter("height");
-    String weight = request.getParameter("weight");
-    if(pass2!=null&&pass!=null&&name!=null){
-        if(pass2!="" && pass!="" && name!=""){
-            Connection connection = null;
-            PreparedStatement pstatement = null;
-            Class.forName(driverName);
-            int passError=0;
-            int weightError=0;
-            if(!pass.equals(pass2)) passError++;
-            if(!weight.equals("NULL")||!weight.equals("")){
-                try{
-                    float num = Float.parseFloat(weight);
-                    weightError=0;
-                }
-                catch(NumberFormatException e){
-                    out.println(e);
-                    weightError++;
-                }
-            }
-            if(weightError==0&&passError==0){
-                if(height==null || height==""){
-                    height="0";
-                }
-                if(weight.equals("NULL") || weight==""){
-                    weight="0";
-                }
-                try{
-                String queryString = "UPDATE lietotajs SET Parole = "+ pass+", Vards =" +name+", Uzvards="+surname
-                                    +", Garums="+height+", Svars="+weight+" WHERE idLietotajs="+l.getId();
-                out.println(queryString);
-                pstatement = connection.prepareStatement(queryString);
-                int i = pstatement.executeUpdate();
-
-                connection.close();
-                response.sendRedirect("index.htm");
-                }
-                catch(SQLException e){
-                    out.println(e);
-                }
-            }
-            else{
-                if(passError!=0){
-                    %><script type="text/javascript">
-                    document.getElementById("l4").style.display="block";
-                    </script><%
-                }
-                if(weightError!=0){
-                    %><script type="text/javascript">
-                    document.getElementById("l3").style.display="block";
-                    </script><%
-                }
-            }
-        }
-    }
-        
-    
-    
-%>
     </body>
 </html>
