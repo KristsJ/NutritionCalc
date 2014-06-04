@@ -4,6 +4,7 @@
     Author     : Krists
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
@@ -14,6 +15,7 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="lv.nutritionCalc.objects.Lietotajs"%>
+<%@page import="lv.nutritionCalc.objects.Produkts"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,10 +32,49 @@
         
         
         <script type="text/javascript">
+            
+            <%
+                /*try {
+                    
+                    Lietotajs l = (Lietotajs)request.getSession().getAttribute("lietotajs");
+                    
+                    int updateQuery = 0;
+                    
+                    Connection connection = null;
+
+                    PreparedStatement pstatement1 = null;
+                    PreparedStatement pstatement2 = null;
+                    PreparedStatement pstatement3 = null;
+                    Class.forName(driverName);
+
+                    connection = DriverManager.getConnection(url, user, psw);
+                    
+                    String queryString1 = "SELECT idProdukts FROM produkts WHERE Nosaukums = '"+login+"'" + 
+                    String queryString1 = "SELECT * FROM lietotajs WHERE Lietotajvards = '"+login+"'";
+                    String queryString3 = "INSERT INTO apests "
+                            + "(idLietotajs, idProdukts, Daudzums, Datums)"
+                            + " VALUES (?, ?, ?, ?)";
+
+                    pstatement3 = connection.prepareStatement(queryString3);
+                    pstatement3.setString(1, l.getId());
+                    pstatement3.setString(2, "");
+                    pstatement3.setString(3, "");
+                    pstatement3.setString(4, "");
+                    updateQuery = pstatement3.executeUpdate();
+                    
+                    connection.close();                    
+                }
+
+                catch(SQLException sqe) { 
+                      out.println(sqe);
+                }*/
+            %>
+    
+    
             function displayResult()
             {
                 document.getElementById("myTable").insertRow(1).innerHTML = '\
-                <td align="center">Yoghurt</td>\n\
+                <td align="center">Test</td>\n\
                 <td align="center">gr.</td>\n\
                 <td align="center">350</td>\n\
                 <td align="center">200</td>\n\
@@ -46,6 +87,7 @@
                 <td align="center">0.0 g</td>\n\
                 <td align="center">4.8 g</td>';
             }
+            
         </script>
         
         
@@ -152,17 +194,9 @@
                 z-index: 1;
             }
             
-            .menu li {
-                font-size: 12px;
-            }
-            
-            .menu a {
-                text-decoration: none;
-                line-height: 18px;
-            }
-            
-            .menu a:hover {
-                color: gold;
+            .menuButtons {
+                position: relative;
+                margin-left: 50px;
             }
             
             .menuStrip {
@@ -239,7 +273,7 @@
         
     //--------------------------
     
-    if (garums.equals("null"))
+    if (garums.equals("0"))
     {
         garums = "-";
     }
@@ -248,7 +282,7 @@
         garums += " cm";
     }
     
-    if (svars.equals("null"))
+    if (svars.equals("0.0"))
     {
         svars = "-";
     }
@@ -303,9 +337,9 @@
     Date date = new SimpleDateFormat("yyyy-M-d").parse(dateString);
 
     String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
-%>  
     
-    
+%>    
+
     <body>
         <div id="wrap">
             <div class="header">
@@ -341,31 +375,101 @@
                 </div>
                 <div class="menu">
                     Choose the product:
-                    <select name="myProducts">
-                        <option value=""></option>
-                        <option value="Yoghurt">Yoghurt</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Coca Cola">Coca Cola</option>
-                    </select>
-                    <ul>
+                    <select name="myProducts" style="width: 200px">
+                        <%
+                        //ArrayList<String> produkti = new ArrayList<String>();
+                        String produktaNosaukums = "";
                         
-                        <li><a href="../NutritionCalc/pievienot.htm">Add product</a></li>
-                        <li><a href="#">Edit product</a></li>
-                        <li><a href="#">Delete product</a></li>
-                    </ul>
+                        try {
+                            Connection connection = null;
+                            PreparedStatement pstatement = null;
+                            Class.forName(driverName);
+
+                            connection = DriverManager.getConnection(url, user, psw);
+
+                            String queryString = "SELECT Nosaukums FROM produkts";
+                            pstatement = connection.prepareStatement(queryString);
+                            ResultSet rs1 = pstatement.executeQuery();
+
+                            while (rs1.next()){
+                                produktaNosaukums = rs1.getString("Nosaukums");
+                                //produkti.add(produktaNosaukums);
+                                %>
+                                <option value="<%=produktaNosaukums %>"><%=produktaNosaukums%></option>
+                                <%
+                            }
+
+                            connection.close();                    
+                        }
+
+                        catch(SQLException sqe) { 
+                              out.println(sqe);
+                        }  
+                        %>
+                    </select>
+                    
+                    <br><br>
+                    <div class="menuButtons">
+                        <form action="../NutritionCalc/pievienot.htm">
+                            <input type="submit" value="Add product" style="width: 100px">
+                        </form>
+                        <form action="../NutritionCalc/produkts_edit.htm">
+                            <input type="submit" value="Edit product" style="width: 100px">
+                        </form>
+                        <input type="submit" value="Delete product" style="width: 100px">
+                    </div>
                 </div>
             </div>
             
             <div class="content">
                 <div class="addProduct">
                     <select name="myProductsToEat" style="width: 200px">
-                        <option value=""></option>
-                        <option value="Yoghurt">Yoghurt</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Coca Cola">Coca Cola</option>
+                        <%
+                        //ArrayList<String> produkti = new ArrayList<String>();
+                        String produktaNosaukums2 = "";
+                        
+                        try {
+                            Connection connection = null;
+                            PreparedStatement pstatement = null;
+                            Class.forName(driverName);
+
+                            connection = DriverManager.getConnection(url, user, psw);
+
+                            String queryString = "SELECT Nosaukums FROM produkts";
+                            pstatement = connection.prepareStatement(queryString);
+                            ResultSet rs1 = pstatement.executeQuery();
+
+                            while (rs1.next()){
+                                produktaNosaukums2 = rs1.getString("Nosaukums");
+                                //produkti.add(produktaNosaukums);
+                                %>
+                                <option value="<%=produktaNosaukums2%>"><%=produktaNosaukums2%></option>
+                                <%
+                            }
+
+                            connection.close();                    
+                        }
+
+                        catch(SQLException sqe) { 
+                              out.println(sqe);
+                        }  
+                        %>
+                        
+                        <%--
+                        <%
+                        for (int i = 0; i <= produkti.size(); i++){
+                            String tempProd = produkti.get(i);
+                        %>
+                            <option value="<%=tempProd%>"><%=tempProd%></option>
+                        <%
+                        }
+                        %>
+                        --%>
                     </select>
                     <form name="input">
-                        <input type="text" style="width: 100px"> X <button type="button" style="width: 75px" onclick="displayResult()">Add</button>
+                        <input type="text" style="width: 100px"> X 
+                        <button type="button" style="width: 75px" 
+                                onclick="displayResult()">Add</button>
                     </form>
                 </div>
                 <br />
@@ -379,7 +483,8 @@
                 </div>
                 <br />
                 <div class="table">
-                    <table id="myTable" style="border: 1px solid black; border-collapse: collapse; width: 950px" align="center" cellpadding="5">
+                    <table id="myTable" style="border: 1px solid black; 
+                           border-collapse: collapse; width: 950px" align="center" cellpadding="5">
                         <tr style="background-color: purple; color: white" align="center"> 
                             <th>Product</th>
                             <th><b>X</b></td>
@@ -424,4 +529,54 @@
     </body>
 </html>
 
+<%
+    try {
+        Connection connection = null;
+        PreparedStatement pstatement = null;
+        Class.forName(driverName);
+
+        connection = DriverManager.getConnection(url, user, psw);
+        String nos = request.getParameter("myProducts");              
+        String queryString1 = "SELECT * FROM produkts WHERE Nosaukums = '" + nos + "'";
+        pstatement = connection.prepareStatement(queryString1);
+        ResultSet rs2 = pstatement.executeQuery();
+        
+        String idProdukts="";
+        String Nosaukums="";
+        String Mervieniba="";
+        String kCal="";
+        String Tauki="";
+        String Oglhidr="";
+        String OlBalt="";
+        String Sals="";
+        String TranSk="";
+        String SkiedrViel="";
+        String Cukurs="";
+        Produkts produkts=null;
+
+        while(rs2.next()){
+            idProdukts=rs2.getString("idProdukts");
+            Nosaukums=rs2.getString("Nosaukums");
+            Mervieniba=rs2.getString("Mervieniba");
+            kCal=rs2.getString("kCal");
+            Tauki=rs2.getString("Tauki");
+            Oglhidr=rs2.getString("Oglhidr");
+            OlBalt=rs2.getString("OlBalt");
+            Sals=rs2.getString("Sals");
+            TranSk=rs2.getString("TranSk");
+            SkiedrViel=rs2.getString("SkiedrViel");
+            Cukurs=rs2.getString("Cukurs");
+            produkts = new Produkts(idProdukts, Nosaukums, Mervieniba, kCal,
+                    Tauki, Oglhidr, OlBalt, Sals, TranSk, SkiedrViel, Cukurs);
+        }
+        request.getSession().setAttribute("produkts",produkts);
+        //response.sendRedirect("produkts_edit.htm");
+
+        connection.close();                    
+    }
+
+    catch(SQLException sqe){ 
+          out.println(sqe);
+    }
+%>
 
