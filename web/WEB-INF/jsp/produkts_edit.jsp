@@ -206,10 +206,10 @@
                                             }
                                         }
                                     }
-                                    queryString = "UPDATE produkts SET Nosaukums = "+ produkts1.getNosaukums()+", Mervieniba = "+ produkts1.getMervieniba()+
-                                            ", kCal = "+ produkts1.getkCal() +", Tauki = "+ produkts1.getTauki()+", OglHidr = "+ produkts1.getOglHidr()+ 
-                                            ", OlBalt = "+ produkts1.getOlBalt() +", Sals = "+produkts1.getSals() +", TranSk = "+ produkts1.getTranSk() +
-                                            ", SkiedrViel = "+ produkts1.getSkiedrViel() + ", Cukurs = "+ produkts1.getCukurs() +" WHERE idProdukts = "+id;
+                                    queryString = "UPDATE produkts SET Nosaukums = '"+ produkts1.getNosaukums()+"', Mervieniba = '"+ produkts1.getMervieniba()+
+                                            "', kCal = '"+ produkts1.getkCal() +"', Tauki = '"+ produkts1.getTauki()+"', OglHidr = '"+ produkts1.getOglHidr()+ 
+                                            "', OlBalt = '"+ produkts1.getOlBalt() +"', Sals = '"+produkts1.getSals() +"', TranSk = '"+ produkts1.getTranSk() +
+                                            "', SkiedrViel = '"+ produkts1.getSkiedrViel() + "', Cukurs = '"+ produkts1.getCukurs() +"' WHERE idProdukts = "+id;
                                     
                                     pstatement = connection.prepareStatement(queryString);
                                     updateQuery = pstatement.executeUpdate();
