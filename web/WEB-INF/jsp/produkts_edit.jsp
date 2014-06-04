@@ -17,7 +17,9 @@
     <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
     <%!String user = "accenture_madara";%>
     <%!String psw = "85dN17hk1yUEY:x";%>
-    <%Produkts produkts = (Produkts)request.getSession().getAttribute("produkts");%>
+    <%
+        Produkts produkts = (Produkts)request.getSession().getAttribute("produkts");
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
@@ -156,6 +158,7 @@
                         <input type="submit" value="Add/Pievienot">
                     </form>
                         <%
+                        String id = produkts.getId();
                         String Nosaukums = request.getParameter("prodName");
                         String Mervieniba = request.getParameter("mervieniba");
                         String kCal = request.getParameter("kcal");
@@ -166,7 +169,6 @@
                         String TranSk = request.getParameter("transk");
                         String SkiedrViel = request.getParameter("skiedrv");
                         String Cukurs = request.getParameter("cukurs");
-                        String id = produkts.getId();
                         
                         Connection connection = null;
                         PreparedStatement pstatement = null;    //ievieto produkts
