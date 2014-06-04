@@ -86,7 +86,7 @@
             
             .main_nos{
                 position: relative;
-                line-height: 36px;
+                line-height: 40px;
                 float: left;
                 width: auto;
                 height: 120px;
@@ -106,55 +106,46 @@
             <a href="../NutritionCalc/index.htm">Back</a>
             </div>
             <div class="content">
-                <h1>New product / Jauns produkts</h1>
+                <h1>New product</h1>
                 <div class="main_nos">
-                    product name / produkta nosaukums : 
-                    <br>
-                    unit of measurement / mērvienība : 
-                    <br>
-                    kCal : 
-                    <br>
-                    fat / tauki :
-                    <br>
-                    carbohydrate / ogļhidrāti : 
-                    <br>
-                    protein / olbaltumvielas :
-                    <br>
-                    salt / sāls :  
-                    <br>
-                    transtaukskābes : 
-                    <br>
-                    cellulose / škiedrvielas : 
-                    <br>
-                    sugar / cukurs : 
-                    </div>
+                    Product name: <br>
+                    Unit of measurement: <br> 
+                    kCal: <br>
+                    Fat: <br>
+                    Carbohydrate: <br> 
+                    Protein: <br>
+                    Salt: <br>  
+                    Bad fat: <br>
+                    Fibre: <br>
+                    Sugar:
+                </div>
                 <div class="main">
                     <form name="input" method="get">
                         <input type="text" name="prodName" style="width: 100px"> * 
-                        <br></br>
-                        <select name="mervieniba" style="width: 103px">
+                        <br><br>
+                        <select name="mervieniba" style="width: 104px">
                             <option value="mL">ml</option>
                             <option value="g">g</option>
                             <option value="gab">piece</option>
                         </select> *
-                        <br></br>
+                        <br><br>
                         <input type="text" name="kcal" style="width: 100px"> *
-                        <br></br>
+                        <br><br>
                         <input type="text" name="fat" style="width: 100px">
-                        <br></br>
+                        <br><br>
                         <input type="text" name="oglHidr" style="width: 100px"> 
-                        <br></br>
+                        <br><br>
                         <input type="text" name="olbalt" style="width: 100px">
-                        <br></br>
+                        <br><br>
                         <input type="text" name="sals" style="width: 100px"> 
-                        <br></br>
+                        <br><br>
                         <input type="text" name="transk" style="width: 100px"> 
-                        <br></br>
+                        <br><br>
                         <input type="text" name="skiedrv" style="width: 100px"> 
-                        <br></br>
+                        <br><br>
                         <input type="text" name="cukurs" style="width: 100px"> 
-                        <br></br><br></br>
-                        <input type="submit" value="Add/Pievienot">
+                        <br><br>
+                        <input type="submit" value="Add product" style="width: 104px">
                     </form>
                     
                     <%
@@ -260,7 +251,7 @@
                         else{
                         %>
                                     
-                                    <p style="color:red">Nav ievadīti obligātie lauki!</p>
+                        <p style="color:red"><b>*Obligāti aizpildāmie lauki!</b></p>
                                     
                         <%
                         }
