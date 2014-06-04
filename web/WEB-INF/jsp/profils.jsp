@@ -3,6 +3,9 @@
     Created on : 2014.3.6, 18:20:12
     Author     : Katrina
 --%>
+
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -161,9 +164,9 @@
 
                         </div>
                         <div class="column2">
-                            <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>">
-                            <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>">
-                            <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>">
+                            <input type="password" style="width: 150px; height: 18px" name="passBox" value="<%=l.getPassword()%>" required>
+                            <input type="password" style="width: 150px; height: 18px" name="passBox2" value="<%=l.getPassword()%>" required>
+                            <input type="text" style="width: 150px; height: 18px" name="nameBox" value="<%=l.getName()%>" required>
                             <input type="text" style="width: 150px; height: 18px" name="surnameBox" value="<%=l.getSurname()%>">
                             <select name="height" style="width: 153px; height: 22px">
                                 <%for(int i=50; i<=250; i++){
@@ -201,5 +204,69 @@
                 </div>
             </div>
         </div>
+<%
+    String pass = request.getParameter("passBox");
+    String pass2 = request.getParameter("passBox2");
+    String name = request.getParameter("nameBox");
+    String surname = request.getParameter("surnameBox");
+    String height = request.getParameter("height");
+    String weight = request.getParameter("weightBox");
+    if(pass2!=null&&pass!=null&&name!=null){
+        if(pass2!="" && pass!="" && name!=""){
+            Connection connection = null;
+            PreparedStatement pstatement = null;
+            Class.forName(driverName);
+            int passError=0;
+            int weightError=0;
+            if(!pass.equals(pass2)) passError++;
+            if(!weight.equals("NULL")||!weight.equals("")){
+                try{
+                    float num = Float.parseFloat(weight);
+                    weightError=0;
+                }
+                catch(NumberFormatException e){
+                    weightError++;
+                }
+            }
+            if(weightError==0&&passError==0){
+                if(surname!=null || height!=null || weight!=null){
+                    if(surname!="" || height!="" || weight!=""){
+                        if(surname.equals("NULL") || surname==""){
+                            surname="NULL";
+                        }
+                        if(height==null || height==""){
+                            height="NULL";
+                        }
+                        if(weight.equals("NULL") || weight==""){
+                            weight="NULL";
+                        }
+                        String queryString = "UPDATE lietotajs SET Parole = "+ pass+", Vards =" +name+", Uzvards="+surname
+                                            +", Garums="+height+", Svars="+weight+" WHERE idLietotajs="+l.getId();
+                        pstatement = connection.prepareStatement(queryString);
+                        pstatement.executeUpdate();
+
+                        connection.close();
+                        response.sendRedirect("index.htm");
+                    }
+                }
+            }
+            else{
+                if(passError!=0){
+                    %><script type="text/javascript">
+                    document.getElementById("l4").style.display="block";
+                    </script><%
+                }
+                if(weightError!=0){
+                    %><script type="text/javascript">
+                    document.getElementById("l3").style.display="block";
+                    </script><%
+                }
+            }
+        }
+    }
+        
+    
+    
+%>
     </body>
 </html>
