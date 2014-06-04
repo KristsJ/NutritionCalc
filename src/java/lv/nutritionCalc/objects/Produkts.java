@@ -21,6 +21,7 @@ public class Produkts {
     private String TranSk = "";
     private String SkiedrViel = "";
     private String Cukurs = "";
+    private String Id = "";
     
     public Produkts(String Nosaukums, String Mervieniba, String kCal){
         this.Nosaukums=Nosaukums;
@@ -34,7 +35,29 @@ public class Produkts {
         this.SkiedrViel = "0.0";
         this.Cukurs = "0.0";
     }
+    public Produkts(String Id, String Nosaukums, String Mervieniba, String kCal, 
+            String Tauki, String OglHidr, String OlBalt, String Sals, String TranSk, 
+            String SkiedrViel, String Cukurs){
+        
+        this.Id = Id;
+        this.Nosaukums = Nosaukums;
+        this.Mervieniba = Mervieniba;
+        this.kCal = kCal;
+        this.Tauki = Tauki;
+        this.OglHidr = OglHidr;
+        this.OlBalt = OlBalt;
+        this.Sals = Sals;
+        this.TranSk = TranSk;
+        this.SkiedrViel = SkiedrViel;
+        this.Cukurs = Cukurs;
+    }
     
+    public String getId(){
+        return this.Id;
+    }
+    public void setId(String Id){
+        this.Id=Id;
+    }
     public String getNosaukums(){
         return this.Nosaukums;
     }

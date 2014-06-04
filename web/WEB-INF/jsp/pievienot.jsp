@@ -118,12 +118,12 @@
                     <br>
                     carbohydrate / ogļhidrāti : 
                     <br>
-                    albumen / olbaltumvielas :
+                    protein / olbaltumvielas :
                     <br>
                     salt / sāls :  
                     <br>
-                     / transtaukskābes : 
-                     <br>
+                    transtaukskābes : 
+                    <br>
                     cellulose / škiedrvielas : 
                     <br>
                     sugar / cukurs : 
