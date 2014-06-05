@@ -408,9 +408,9 @@
                         %>
                         --%>
                     </select>
-                    <form name="input" method="get">
+                    <form name="input" method="get" action="../NutritionCalc/insertApests.htm">
                         <input type="text" name="cikDaudz" style="width: 100px"> X 
-                        <button type="button" style="width: 75px" 
+                        <button type="button" style="width: 75px"
                                 onclick="UzzimetTabulu()">Add</button>
                     </form>
                 </div>
@@ -868,7 +868,7 @@ function UzzimetTabulu()
                             
                         }
                         catch(SQLException sqe){
-                            
+                            response.sendRedirect("login.htm");
                         }
                         for(int i = 1; i <= produkti.size(); i++){
                             //visus produktus ieliek tabulaa
@@ -887,7 +887,8 @@ function UzzimetTabulu()
                             
                             
     
-        %><p>Produkts<%=nos2%>, mervieniba <%=mer2%>, kCal <%=sakKCal%>, daudzums <%=d%>, kcal <%=kcal2%>, OglHidr <%=ogl2%>, Cukurs <%=cuk2%>, Olbalt <%=ol2%>, Tauki <%=tauki2%>, Transk <%=tran2%>, Sals <%=sal2%>, SkiedrV <%=ski2%></p><%
+        %>
+        <p>Produkts<%=nos2%>, mervieniba <%=mer2%>, kCal <%=sakKCal%>, daudzums <%=d%>, kcal <%=kcal2%>, OglHidr <%=ogl2%>, Cukurs <%=cuk2%>, Olbalt <%=ol2%>, Tauki <%=tauki2%>, Transk <%=tran2%>, Sals <%=sal2%>, SkiedrV <%=ski2%></p><%
     }
                         %>
    </body>
