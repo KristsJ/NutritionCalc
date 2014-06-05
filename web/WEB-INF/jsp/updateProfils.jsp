@@ -4,6 +4,7 @@
     Author     : Katrina
 --%>
 
+<%@page import="lv.nutritionCalc.objects.Lietotajs"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -15,7 +16,9 @@
     <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
     <%!String user = "accenture_madara";%>
     <%!String psw = "85dN17hk1yUEY:x";%>
-    <%String pass = request.getParameter("passBox");
+    
+    <%Lietotajs l = (Lietotajs)request.getSession().getAttribute("lietotajs");
+    String pass = request.getParameter("passBox");
     String pass2 = request.getParameter("passBox2");
     String name = request.getParameter("nameBox");
     String surname = request.getParameter("surnameBox");
@@ -29,6 +32,11 @@
     try{
     String queryString = "UPDATE lietotajs SET Parole = '"+ pass+"', Vards ='" +name+"', Uzvards='"+surname
                         +"', Garums='"+height+"', Svars='"+weight+"' WHERE idLietotajs="+id;
+    l.setPassword(pass);
+    l.setName(name);
+    l.setSurname(surname);
+    l.setHeight(height);
+    l.setWeight(weight);
     out.println(queryString);
     connection = DriverManager.getConnection(url, user, psw);
     pstatement = connection.prepareStatement(queryString);

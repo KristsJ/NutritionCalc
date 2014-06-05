@@ -84,7 +84,6 @@
                 z-index:2;
                 font-size: 15px;
                 line-height: 36px;
-                background-color: chartreuse;
             }
             .column2{
                 position: relative;
@@ -94,7 +93,6 @@
                 top:-216px;
                 line-height: 36px;
                 z-index:2;
-                background-color: magenta;
             }
             .button{
                 position: relative;
@@ -112,7 +110,6 @@
                 line-height: 36px;
                 z-index:2;
                 height: 216px;
-                background-color: cyan;
             }
             
             .label4{
