@@ -365,53 +365,53 @@
             
             <div class="content">
                 <div class="addProduct">
-                    <select name="myProductsToEat" style="width: 200px">
-                        <%
-                        //ArrayList<String> produkti = new ArrayList<String>();
-                        String produktaNosaukums2 = "";
-                        
-                        try {
-                            Connection connection = null;
-                            PreparedStatement pstatement = null;
-                            Class.forName(driverName);
+                    <form name="input" method="get" action="../NutritionCalc/insertApests.htm">
+                        <select name="myProductsToEat" style="width: 200px">
+                            <%
+                            //ArrayList<String> produkti = new ArrayList<String>();
+                            String produktaNosaukums2 = "";
 
-                            connection = DriverManager.getConnection(url, user, psw);
+                            try {
+                                Connection connection = null;
+                                PreparedStatement pstatement = null;
+                                Class.forName(driverName);
 
-                            String queryString = "SELECT Nosaukums FROM produkts";
-                            pstatement = connection.prepareStatement(queryString);
-                            ResultSet rs1 = pstatement.executeQuery();
+                                connection = DriverManager.getConnection(url, user, psw);
 
-                            while (rs1.next()){
-                                produktaNosaukums2 = rs1.getString("Nosaukums");
-                                //produkti.add(produktaNosaukums);
-                                %>
-                                <option value="<%=produktaNosaukums2%>"><%=produktaNosaukums2%></option>
-                                <%
+                                String queryString = "SELECT Nosaukums FROM produkts";
+                                pstatement = connection.prepareStatement(queryString);
+                                ResultSet rs1 = pstatement.executeQuery();
+
+                                while (rs1.next()){
+                                    produktaNosaukums2 = rs1.getString("Nosaukums");
+                                    //produkti.add(produktaNosaukums);
+                                    %>
+                                    <option value="<%=produktaNosaukums2%>"><%=produktaNosaukums2%></option>
+                                    <%
+                                }
+
+                                connection.close();                    
                             }
 
-                            connection.close();                    
-                        }
+                            catch(SQLException sqe) { 
+                                  out.println(sqe);
+                            }  
+                            %>
 
-                        catch(SQLException sqe) { 
-                              out.println(sqe);
-                        }  
-                        %>
-                        
-                        <%--
-                        <%
-                        for (int i = 0; i <= produkti.size(); i++){
-                            String tempProd = produkti.get(i);
-                        %>
-                            <option value="<%=tempProd%>"><%=tempProd%></option>
-                        <%
-                        }
-                        %>
-                        --%>
-                    </select>
-                    <form name="input" method="get" action="../NutritionCalc/insertApests.htm">
+                            <%--
+                            <%
+                            for (int i = 0; i <= produkti.size(); i++){
+                                String tempProd = produkti.get(i);
+                            %>
+                                <option value="<%=tempProd%>"><%=tempProd%></option>
+                            <%
+                            }
+                            %>
+                            --%>
+                        </select>
+                    
                         <input type="text" name="cikDaudz" style="width: 100px"> X 
-                        <button type="button" style="width: 75px"
-                                onclick="UzzimetTabulu()">Add</button>
+                        <button type="submit" style="width: 75px">Add</button>
                     </form>
                 </div>
                 <br />

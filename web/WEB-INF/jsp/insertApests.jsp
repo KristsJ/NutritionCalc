@@ -4,7 +4,7 @@
     Author     : Katrina
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="JAVA" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <%! String driverName = "com.mysql.jdbc.Driver";%>
