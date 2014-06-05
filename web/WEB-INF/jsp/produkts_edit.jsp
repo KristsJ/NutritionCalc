@@ -17,9 +17,7 @@
     <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
     <%!String user = "accenture_madara";%>
     <%!String psw = "85dN17hk1yUEY:x";%>
-    <%
-        Produkts produkts = (Produkts)request.getSession().getAttribute("produkts");
-    %>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nutrition and Diet calc</title>
@@ -131,7 +129,8 @@
                     </div>
                 <div class="main">
                     <form name="input" method="get">
-                        <input type="text" name="prodName" style="width: 100px" value="<%=produkts.getNosaukums()%>"> * 
+                        <%Produkts p = (Produkts)request.getSession().getAttribute("produkts");%>
+                        <input type="text" name="prodName" style="width: 100px" value="<%=p.getNosaukums()%>"> * 
                         <br></br>
                         <select name="mervieniba" style="width: 103px">
                             <option value="mL">ml</option>
@@ -139,26 +138,25 @@
                             <option value="gab">piece</option>
                         </select> *
                         <br></br>
-                        <input type="text" name="kcal" style="width: 100px" value="<%=produkts.getkCal()%>"> *
+                        <input type="text" name="kcal" style="width: 100px" value="<%=p.getkCal()%>"> *
                         <br></br>
-                        <input type="text" name="fat" style="width: 100px" value="<%=produkts.getTauki()%>">
+                        <input type="text" name="fat" style="width: 100px" value="<%=p.getTauki()%>">
                         <br></br>
-                        <input type="text" name="oglHidr" style="width: 100px" value="<%=produkts.getOglHidr()%>"> 
+                        <input type="text" name="oglHidr" style="width: 100px" value="<%=p.getOglHidr()%>"> 
                         <br></br>
-                        <input type="text" name="olbalt" style="width: 100px" value="<%=produkts.getOlBalt()%>">
+                        <input type="text" name="olbalt" style="width: 100px" value="<%=p.getOlBalt()%>">
                         <br></br>
-                        <input type="text" name="sals" style="width: 100px" value=""<%=produkts.getSals()%>> 
+                        <input type="text" name="sals" style="width: 100px" value=""<%=p.getSals()%>> 
                         <br></br>
-                        <input type="text" name="transk" style="width: 100px" value="<%=produkts.getTranSk()%>"> 
+                        <input type="text" name="transk" style="width: 100px" value="<%=p.getTranSk()%>"> 
                         <br></br>
-                        <input type="text" name="skiedrv" style="width: 100px" value="<%=produkts.getSkiedrViel()%>"> 
+                        <input type="text" name="skiedrv" style="width: 100px" value="<%=p.getSkiedrViel()%>"> 
                         <br></br>
-                        <input type="text" name="cukurs" style="width: 100px" value="<%=produkts.getCukurs()%>"> 
+                        <input type="text" name="cukurs" style="width: 100px" value="<%=p.getCukurs()%>"> 
                         <br></br><br></br>
                         <input type="submit" value="Add/Pievienot">
-                    </form>
                         <%
-                        String id = produkts.getId();
+                        String id = p.getId();
                         String Nosaukums = request.getParameter("prodName");
                         String Mervieniba = request.getParameter("mervieniba");
                         String kCal = request.getParameter("kcal");
@@ -215,7 +213,7 @@
                                     updateQuery = pstatement.executeUpdate();
                                     
                                     connection.close();
-                                    response.sendRedirect("index.htm");
+                                    //response.sendRedirect("index.htm");
                                 }
                                 catch(SQLException sqe){
                                     out.println(sqe);
@@ -225,16 +223,16 @@
                                     
                                     <%
                                 }
+                                finally{
+                                    response.sendRedirect("index.htm");
+                                }
+                                
                             }
                         }
-                        else{
-                        %>
-                                    
-                                    <p style="color:red">Nav ievadīti obligātie lauki!</p>
-                                    
-                        <%
-                        }
+                        
                     %>
+                    </form>
+                        
                 </div>
             </div>
         </div>
