@@ -28,11 +28,7 @@
         <%!String driverName = "com.mysql.jdbc.Driver";%>
         <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
         <%!String user = "accenture_madara";%>
-        <%!String psw = "85dN17hk1yUEY:x";%>
-        
-        
-        
-        
+        <%!String psw = "85dN17hk1yUEY:x";%>        
         
         <style type="text/css">
              body, html {
@@ -52,7 +48,7 @@
                 min-height: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                background: lightcyan;
+                background: #E1FFE1;
             }
             
             .header {   
@@ -60,7 +56,7 @@
                 width: 990px;
                 height: auto;
                 color: black;
-                background-color: yellow;
+                background-color: #E1FFE1;
             }
             
             .title {
@@ -81,7 +77,7 @@
                 font-family: arial;
                 font-style: italic;
                 line-height: 18px;
-                background-color: blue;
+                //background-color: yellow;
                 z-index: 1;
             }
             
@@ -91,7 +87,7 @@
                 height: 25px;
                 text-align: center;
                 font-size: 16px;
-                background-color: silver;
+                //background-color: silver;
             }
             
             .personColumn1 {
@@ -100,7 +96,7 @@
                 width: 75px;
                 height: 100px;
                 font-size: 12px;
-                background-color: green;
+                //background-color: green;
             }
             
             .personColumn1 a {
@@ -118,7 +114,7 @@
                 width: 125px;
                 height: 100px;
                 font-size: 12px;
-                background-color: red;
+                //background-color: red;
             }
             
             .menu {
@@ -133,7 +129,7 @@
                 font-weight: bold;
                 font-size: 14px;
                 line-height: 18px;
-                background-color: orange;
+                //background-color: orange;
                 z-index: 1;
             }
             
@@ -154,7 +150,7 @@
                 font-size: 24px;
                 font-weight: bold;
                 line-height: 125px;
-                background-color: darkorchid;
+                background-color: #E1FFE1;
             }
             
             .profile {
@@ -168,7 +164,7 @@
                 position: relative;
                 width: 990px;
                 height: auto;
-                background-color: cornsilk;
+                //background-color: cornsilk;
             }
             
             .addProduct {
@@ -353,12 +349,12 @@
                     <br><br>
                     <div class="menuButtons">
                         <form action="../NutritionCalc/pievienot.htm">
-                            <input type="submit" value="Add product" style="width: 100px">
+                            <input type="submit" value="Add product" style="width: 100px; height: 25px">
                         </form>
                         <form action="../NutritionCalc/produkts_edit.htm">
-                            <button type="button" value="Edit product" onclick="produktaIzveide()" style="width: 100px">
+                            <button type="button" value="Edit product" onclick="produktaIzveide()" style="width: 100px; height: 25px">
+                                Edit product</button>
                         </form>
-                        <input type="submit" value="Delete product" style="width: 100px">
                     </div>
                 </div>
             </div>
@@ -428,7 +424,7 @@
                     <table id="myTable" style="border: 1px solid black; 
                            border-collapse: collapse; width: 950px" align="center" cellpadding="5">
                         <tr style="background-color: purple; color: white" align="center"> 
-                            <td>Product</td>
+                            <td><b>Product</b></td>
                             <td><b>X</b></td>
                             <td><b>Kcal. / 100</b></td>
                             <td><b>Value</b></td>
