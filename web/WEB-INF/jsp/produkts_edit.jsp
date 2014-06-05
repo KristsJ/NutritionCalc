@@ -130,7 +130,7 @@
                 <div class="main">
                     <form name="input" method="get">
                         <%Produkts p = (Produkts)request.getSession().getAttribute("produkts");%>
-                        <input type="text" name="prodName" style="width: 100px" value="<%=p.getNosaukums()%>"> * 
+                        <input type="text" name="prodName" style="width: 100px" value="<%//=p.getNosaukums()%>"> * 
                         <br></br>
                         <select name="mervieniba" style="width: 103px">
                             <option value="mL">ml</option>

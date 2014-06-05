@@ -15,7 +15,7 @@
     <%!String url = "jdbc:mysql://atverts.lv:3306/accenture_madara";%>
     <%!String user = "accenture_madara";%>
     <%!String psw = "85dN17hk1yUEY:x";%>
-    <%/*String pass = request.getParameter("passBox");
+    <%String pass = request.getParameter("passBox");
     String pass2 = request.getParameter("passBox2");
     String name = request.getParameter("nameBox");
     String surname = request.getParameter("surnameBox");
@@ -39,5 +39,5 @@
     }
     catch(SQLException e){
         out.println(e);
-    }*/%>
+    }%>
 </html>
