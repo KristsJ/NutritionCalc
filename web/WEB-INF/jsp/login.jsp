@@ -39,7 +39,7 @@
                 min-height: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                background: lightcyan;
+                background: #E1FFE1;
             }
             
             .header {
@@ -47,7 +47,7 @@
                 width: 990px;
                 height: auto;
                 color: black;
-                background-color: yellow;
+                background-color: #E1FFE1;
             }
             
             .name {

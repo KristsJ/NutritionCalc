@@ -42,7 +42,7 @@
                 width: 990px;
                 height: auto;
                 color: black;
-                background-color: yellow;
+                background-color: #E1FFE1;
                 
             }
             .name {
@@ -61,7 +61,7 @@
                 height: 480px;
                 left: 0px;
                 top: 0px;
-                background-color: lightcyan;
+                background-color: #E1FFE1;
                 z-index: 1;
             }
             .mainTitle{

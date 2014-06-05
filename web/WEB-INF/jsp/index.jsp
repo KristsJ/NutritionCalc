@@ -77,7 +77,6 @@
                 font-family: arial;
                 font-style: italic;
                 line-height: 18px;
-                //background-color: yellow;
                 z-index: 1;
             }
             
@@ -87,7 +86,6 @@
                 height: 25px;
                 text-align: center;
                 font-size: 16px;
-                //background-color: silver;
             }
             
             .personColumn1 {
@@ -96,7 +94,6 @@
                 width: 75px;
                 height: 100px;
                 font-size: 12px;
-                //background-color: green;
             }
             
             .personColumn1 a {
@@ -114,7 +111,6 @@
                 width: 125px;
                 height: 100px;
                 font-size: 12px;
-                //background-color: red;
             }
             
             .menu {
@@ -129,7 +125,6 @@
                 font-weight: bold;
                 font-size: 14px;
                 line-height: 18px;
-                //background-color: orange;
                 z-index: 1;
             }
             
@@ -164,7 +159,6 @@
                 position: relative;
                 width: 990px;
                 height: auto;
-                //background-color: cornsilk;
             }
             
             .addProduct {
